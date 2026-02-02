@@ -1,13 +1,11 @@
-package com.example.demo.controller;
+package com.example.demo.base.controller;
 
 
-import com.example.demo.entity.Client;
-import com.example.demo.entity.Invoice;
-import com.example.demo.service.ClientService;
-import com.example.demo.service.InvoiceService;
-import com.example.demo.dto.CreateInvoiceRequest;
-import com.example.demo.dto.InvoiceResponse;
-import jakarta.validation.Valid;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.Invoice;
+import com.example.demo.base.service.ClientService;
+import com.example.demo.base.service.InvoiceService;
+import com.example.demo.base.dto.CreateInvoiceRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,9 +1,9 @@
-package com.example.demo.service;
+package com.example.demo.base.service;
 
-import com.example.demo.entity.Client;
-import com.example.demo.entity.CreditLimit;
-import com.example.demo.repository.ClientRepository;
-import com.example.demo.repository.CreditLimitExcelRepository;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.CreditLimit;
+import com.example.demo.base.repository.ClientRepository;
+import com.example.demo.base.repository.CreditLimitExcelRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -66,5 +66,10 @@ public class CreditLimitService {
         CreditLimit cl = creditLimitRepository.findByClient(client)
                 .orElseThrow();
         return cl;
+    }
+
+    public CreditLimit findByClient(Client client) {
+        return creditLimitRepository.findByClient(client)
+                .orElseThrow(() -> new IllegalStateException("Client not found"));
     }
 }

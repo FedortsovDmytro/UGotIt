@@ -1,14 +1,13 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Client;
-import com.example.demo.entity.ClientStatus;
-import com.example.demo.entity.CreditLimit;
-import com.example.demo.repository.CreditLimitRepository;
-import com.example.demo.repository.ClientRepository;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.CreditLimit;
+import com.example.demo.base.repository.CreditLimitExcelRepository;
+import com.example.demo.base.repository.ClientRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -38,7 +37,7 @@ class CreditControllerTest {
     private ClientRepository clientRepository;
 
     @Autowired
-    private CreditLimitRepository creditLimitRepository;
+    private CreditLimitExcelRepository creditLimitRepository;
 
     @Test
     void shouldCreateAndGetCreditLimit() throws Exception {

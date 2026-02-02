@@ -1,8 +1,10 @@
-package com.example.demo.entity;
+package com.example.demo.base.entity;
 
+import com.example.demo.risk.RiskLevel;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
+import java.util.Set;
+
 @Entity
 @Table(name = "risk_assessment")
 public class RiskAssessment {
@@ -29,6 +31,8 @@ public class RiskAssessment {
 
     @Column(nullable = false)
     private LocalDateTime calculatedAt;
+    @OneToMany(mappedBy = "riskAssessment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RiskSignalEntity> signals;
 
     protected RiskAssessment() {}
 
@@ -45,16 +49,18 @@ public class RiskAssessment {
         private final Client client;
         private final int riskScore;
         private final RiskLevel riskLevel;
-        private LocalDateTime calculatedAt=LocalDateTime.now();
+        private final LocalDateTime calculatedAt;
 
         private String reasons;
         private String recommendation;
 
         public Builder(Client client, int riskScore,
-                       RiskLevel riskLevel) {
+                       RiskLevel riskLevel ,LocalDateTime calculatedAt) {
             this.client = client;
             this.riskScore = riskScore;
             this.riskLevel = riskLevel;
+            this.calculatedAt = calculatedAt;
+
         }
 
         public Builder reasons(String val) {
@@ -66,10 +72,6 @@ public class RiskAssessment {
             this.recommendation = val;
             return this;
         }
-        public Builder calculatedAt(LocalDateTime val) {
-            this.calculatedAt=val;
-            return this;
-        }
 
         public RiskAssessment build() {
             if (client == null) throw new IllegalStateException("client required");
@@ -78,6 +80,10 @@ public class RiskAssessment {
 
             return new RiskAssessment(this);
         }
+    }
+
+    public void setSignals(Set<RiskSignalEntity> signals) {
+        this.signals = signals;
     }
 
     public Long getId() {

@@ -1,6 +1,6 @@
-package com.example.demo.ekselUploud.controller;
+package com.example.demo.excelUpload.controller;
 
-import com.example.demo.ekselUploud.servise.BisnodeExcelService;
+import com.example.demo.excelUpload.service.BisnodeExcelService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

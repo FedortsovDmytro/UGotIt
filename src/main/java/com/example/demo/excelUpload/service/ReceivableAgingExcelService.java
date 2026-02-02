@@ -1,10 +1,10 @@
-package com.example.demo.excelUpload.servise;
+package com.example.demo.excelUpload.service;
 
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.ReceivableAging;
+import com.example.demo.base.repository.ClientRepository;
 import com.example.demo.excelUpload.repository.ReceivableAgingRepository;
-import com.example.demo.entity.Client;
-import com.example.demo.entity.ClientStatus;
-import com.example.demo.entity.ReceivableAging;
-import com.example.demo.repository.ClientRepository;
 import jakarta.transaction.Transactional;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;

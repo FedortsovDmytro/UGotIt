@@ -1,11 +1,12 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Client;
-import com.example.demo.entity.ClientStatus;
-import com.example.demo.entity.Invoice;
-import com.example.demo.entity.InvoiceStatus;
-import com.example.demo.service.InvoiceService;
-import com.example.demo.service.ClientService;
+import com.example.demo.base.controller.InvoiceController;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.Invoice;
+import com.example.demo.base.entity.InvoiceStatus;
+import com.example.demo.base.service.InvoiceService;
+import com.example.demo.base.service.ClientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

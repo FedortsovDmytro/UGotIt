@@ -1,9 +1,10 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.*;
-import com.example.demo.service.ClientService;
-import com.example.demo.service.InvoiceService;
-import com.example.demo.service.PaymentService;
+import com.example.demo.base.controller.PaymentController;
+import com.example.demo.base.entity.*;
+import com.example.demo.base.service.ClientService;
+import com.example.demo.base.service.InvoiceService;
+import com.example.demo.base.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -17,7 +18,6 @@ import org.springframework.http.MediaType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

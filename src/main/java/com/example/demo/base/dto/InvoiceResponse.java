@@ -1,6 +1,6 @@
-package com.example.demo.dto;
+package com.example.demo.base.dto;
 
-import com.example.demo.entity.Invoice;
+import com.example.demo.base.entity.Invoice;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

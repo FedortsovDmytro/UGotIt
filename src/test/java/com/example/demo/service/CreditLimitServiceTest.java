@@ -1,23 +1,22 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Client;
-import com.example.demo.entity.CreditLimit;
-import com.example.demo.entity.ClientStatus;
-import com.example.demo.repository.ClientRepository;
-import com.example.demo.repository.CreditLimitRepository;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.CreditLimit;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.repository.ClientRepository;
+import com.example.demo.base.repository.CreditLimitExcelRepository;
+import com.example.demo.base.service.CreditLimitService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 class CreditLimitServiceTest {
 
-    private CreditLimitRepository creditLimitRepository;
+    private CreditLimitExcelRepository creditLimitRepository;
     private ClientRepository clientRepository;
     private CreditLimitService creditLimitService;
 
@@ -25,7 +24,7 @@ class CreditLimitServiceTest {
 
     @BeforeEach
     void setUp() {
-        creditLimitRepository = mock(CreditLimitRepository.class);
+        creditLimitRepository = mock(CreditLimitExcelRepository.class);
         clientRepository = mock(ClientRepository.class);
         creditLimitService = new CreditLimitService(
                 creditLimitRepository,

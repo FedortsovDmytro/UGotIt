@@ -1,6 +1,8 @@
-package com.example.demo.entity;
+package com.example.demo.base.entity;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "bisnode_rating")
@@ -20,10 +22,12 @@ public class Bisnode {
     private Integer dax;
 
     @Column(name = "rating")
-    private String rating;     // ENX, KE, FEGA, brak
-
+    private String rating;
     protected Bisnode() {
     }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     public Bisnode(String clientName, Long externalId, Integer dax, String rating) {
         this.clientName = clientName;
@@ -32,6 +36,15 @@ public class Bisnode {
         this.rating = rating;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+    @Column(name = "fetched_at", nullable = true)
+    private LocalDateTime fetchedAt;
 
     public Long getId() {
         return id;

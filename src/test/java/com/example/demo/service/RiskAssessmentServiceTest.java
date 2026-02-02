@@ -1,12 +1,16 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Client;
-import com.example.demo.entity.RiskAssessment;
-import com.example.demo.entity.RiskLevel;
-import com.example.demo.repository.RiskAssessmentRepository;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.RiskAssessment;
+import com.example.demo.base.repository.RiskAssessmentRepository;
+import com.example.demo.base.service.RiskAssessmentService;
+import com.example.demo.risk.RiskLevel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -15,7 +19,7 @@ class RiskAssessmentServiceTest {
 
     private RiskAssessmentRepository riskAssessmentRepository;
     private RiskAssessmentService riskAssessmentService;
-    private Client client = Client.builder("ext-1", "Alice", com.example.demo.entity.ClientStatus.ACTIVE).build();
+    private Client client = Client.builder("ext-1", "Alice", ClientStatus.ACTIVE).build();
 
     @BeforeEach
     void setUp() {
@@ -25,7 +29,7 @@ class RiskAssessmentServiceTest {
 
     @Test
     void calculateRisk_shouldReturnSavedRiskAssessment() {
-        RiskAssessment ra = new RiskAssessment.Builder(client, 70, RiskLevel.MEDIUM)
+        RiskAssessment ra = new RiskAssessment.Builder(client, 70, RiskLevel.MEDIUM, LocalDateTime.now())
                 .reasons("Some reasons")
                 .recommendation("Some recommendation")
                 .build();

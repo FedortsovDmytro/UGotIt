@@ -1,8 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Invoice;
-import com.example.demo.entity.Payment;
-import com.example.demo.repository.PaymentRepository;
+import com.example.demo.base.entity.Invoice;
+import com.example.demo.base.entity.Payment;
+import com.example.demo.base.repository.PaymentRepository;
+import com.example.demo.base.service.PaymentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

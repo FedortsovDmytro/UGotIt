@@ -1,15 +1,13 @@
-package com.example.demo.controller;
+package com.example.demo.base.controller;
 
-import com.example.demo.dto.RiskAssessmentRequest;
-import com.example.demo.entity.Client;
-import com.example.demo.entity.RiskAssessment;
-import com.example.demo.service.ClientService;
-import com.example.demo.service.PaymentService;
-import com.example.demo.service.RiskAssessmentService;
+import com.example.demo.base.dto.RiskAssessmentRequest;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.RiskAssessment;
+import com.example.demo.base.service.ClientService;
+import com.example.demo.base.service.RiskAssessmentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 @RestController
 @RequestMapping("/clients/{externalId}/risk-assessments")
 public class RiskAssessmentController {
@@ -27,17 +25,10 @@ public class RiskAssessmentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RiskAssessment calculateRisk(
-            @PathVariable String externalId,
-            @RequestBody RiskAssessmentRequest request
-    ) {
+    public RiskAssessment calculateRisk(@PathVariable String externalId) {
+
         Client client = clientService.getByExternalId(externalId);
 
-        return riskAssessmentService.calculateRisk(
-                client,
-                request.score(),
-                request.reasons(),
-                request.recommendation()
-        );
+        return riskAssessmentService.assessAndSave(client);
     }
 }

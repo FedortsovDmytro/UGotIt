@@ -1,14 +1,14 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Client;
-import com.example.demo.entity.ClientStatus;
-import com.example.demo.entity.Invoice;
-import com.example.demo.entity.InvoiceStatus;
-import com.example.demo.repository.ClientRepository;
-import com.example.demo.repository.InvoiceRepository;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.Invoice;
+import com.example.demo.base.entity.InvoiceStatus;
+import com.example.demo.base.repository.ClientRepository;
+import com.example.demo.base.repository.InvoiceRepository;
+import com.example.demo.base.service.InvoiceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

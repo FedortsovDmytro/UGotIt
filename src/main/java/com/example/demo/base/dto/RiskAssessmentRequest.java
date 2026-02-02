@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.base.dto;
 
 public record RiskAssessmentRequest(
         Long clientId,

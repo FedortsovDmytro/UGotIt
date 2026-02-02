@@ -1,9 +1,9 @@
 package com.example.demo.domain;
 
-import com.example.demo.entity.Client;
-import com.example.demo.entity.ClientStatus;
-import com.example.demo.entity.Invoice;
-import com.example.demo.entity.InvoiceStatus;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.Invoice;
+import com.example.demo.base.entity.InvoiceStatus;
 import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;

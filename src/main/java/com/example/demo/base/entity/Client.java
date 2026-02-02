@@ -1,9 +1,9 @@
-package com.example.demo.entity;
+package com.example.demo.base.entity;
 
 import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.ToStringSummary;
 
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -34,6 +34,12 @@ public class Client {
 
     @Column(name = "rating_external")
     private String ratingExternal;
+    @Column(name="created_at")
+    private LocalDate createdAt;
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Invoice> invoices = new ArrayList<>();
@@ -62,6 +68,7 @@ public class Client {
         private final String name;
         private final ClientStatus status;
 
+        private final LocalDate createdAt=LocalDate.now();
         private BigDecimal creditLimit;
         private String ratingExternal;
 

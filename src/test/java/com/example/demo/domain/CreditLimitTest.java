@@ -1,8 +1,8 @@
 package com.example.demo.domain;
 
-import com.example.demo.entity.Client;
-import com.example.demo.entity.ClientStatus;
-import com.example.demo.entity.CreditLimit;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.CreditLimit;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

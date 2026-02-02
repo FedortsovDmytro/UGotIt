@@ -1,113 +1,125 @@
-package com.example.demo.excelUpload.servise;
+package com.example.demo.excelUpload.service;
 
-import com.example.demo.entity.Client;
-import com.example.demo.entity.CreditLimit;
-import com.example.demo.repository.ClientRepository;
-import com.example.demo.repository.CreditLimitExcelRepository;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.CreditLimit;
+import com.example.demo.excelUpload.repository.CreditLimitRepository;
+import com.example.demo.base.repository.ClientRepository;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.FileInputStream;
 import java.math.BigDecimal;
 
 @Service
 public class CreditLimitExcelService {
 
     private final ClientRepository clientRepo;
-    private final CreditLimitExcelRepository creditLimitRepo;
+    private final CreditLimitRepository creditLimitRepo;
 
-    public CreditLimitExcelService(
-            ClientRepository clientRepo,
-            CreditLimitExcelRepository creditLimitRepo
-    ) {
+    public CreditLimitExcelService(ClientRepository clientRepo,
+                                   CreditLimitRepository creditLimitRepo) {
         this.clientRepo = clientRepo;
         this.creditLimitRepo = creditLimitRepo;
     }
 
-    public void importFile(File file) throws IOException {
-        try (Workbook workbook = WorkbookFactory.create(file)) {
+    public void importFile(File file) {
+        try (Workbook workbook = WorkbookFactory.create(new FileInputStream(file))) {
+
             Sheet sheet = workbook.getSheetAt(0);
 
             for (Row row : sheet) {
-                if (row.getRowNum() < 2) continue;
 
                 String externalId = getString(row, 0);
-                if (externalId == null || externalId.isBlank()) continue;
 
-                Client client = clientRepo.findByExternalId(externalId)
-                        .orElseThrow(() ->
-                                new IllegalStateException("Client not found: " + externalId));
+                if (externalId == null ||
+                        externalId.isBlank() ||
+                        externalId.equalsIgnoreCase("konto")) {
+                    continue;
+                }
 
-                BigDecimal limitAmount = getDecimal(row, 6);
-                BigDecimal usedAmount  = getDecimal(row, 15);
-                int paymentTermsDays   = getInt(row, 9);
+                var clientOpt = clientRepo.findByExternalId(externalId);
+//                if (clientOpt.isEmpty()) {
+//                    System.out.println("Клієнта не знайдено, пропущено: " + externalId);
+//                    continue;
+//                }
 
-                if (limitAmount == null) continue;
+                Client client = clientOpt.orElseGet(() -> {
+                    Client newClient = new Client();
+                    newClient.setExternalId(externalId);
+                    newClient.setFullName(getString(row, 1));
+                    newClient.setStatus(ClientStatus.ACTIVE);
+                    return clientRepo.save(newClient);
+                });
+
+
+                BigDecimal limit = getDecimal(row, 6);
+                BigDecimal used = getDecimal(row, 15);
+                Integer days = getInteger(row, 9);
+
+                if (days == null || days <= 0) {
+                    System.out.println("Некоректні days для: " + externalId);
+                    continue;
+                }
 
                 CreditLimit creditLimit = creditLimitRepo
                         .findByClient(client)
-                        .orElse(
-                                new CreditLimit.Builder(
-                                        client,
-                                        limitAmount,
-                                        paymentTermsDays
-                                )
-                                        .usedAmount(
-                                                usedAmount != null ? usedAmount : BigDecimal.ZERO
-                                        )
+                        .orElseGet(() ->
+                                new CreditLimit.Builder(client, limit, days)
+                                        .usedAmount(BigDecimal.ZERO)
                                         .build()
                         );
 
-                creditLimit.setUsedAmount(
-                        usedAmount != null ? usedAmount : BigDecimal.ZERO
-                );
-
+                creditLimit.setUsedAmount(used);
                 creditLimitRepo.save(creditLimit);
             }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to import credit limits", e);
         }
     }
 
-
-    private String getString(Row row, int idx) {
-        Cell cell = row.getCell(idx);
+    private String getString(Row row, int index) {
+        Cell cell = row.getCell(index, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
         if (cell == null) return null;
 
-        return switch (cell.getCellType()) {
-            case STRING -> cell.getStringCellValue().trim();
-            case NUMERIC -> String.valueOf((long) cell.getNumericCellValue());
-            default -> null;
-        };
+        cell.setCellType(CellType.STRING);
+        return cell.getStringCellValue().trim();
     }
 
-    private BigDecimal getDecimal(Row row, int idx) {
-        Cell cell = row.getCell(idx);
-        if (cell == null) return null;
+    private BigDecimal getDecimal(Row row, int index) {
+        Cell cell = row.getCell(index, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+        if (cell == null) return BigDecimal.ZERO;
 
         return switch (cell.getCellType()) {
             case NUMERIC -> BigDecimal.valueOf(cell.getNumericCellValue());
             case STRING -> {
-                String v = cell.getStringCellValue().replace(",", ".").trim();
-                if (v.isEmpty()) yield null;
-                yield new BigDecimal(v);
+                String value = cell.getStringCellValue().trim();
+                yield value.isEmpty()
+                        ? BigDecimal.ZERO
+                        : new BigDecimal(value.replace(",", "."));
             }
-            default -> null;
+            default -> BigDecimal.ZERO;
         };
     }
 
-    private int getInt(Row row, int idx) {
-        Cell cell = row.getCell(idx);
-        if (cell == null) return 0;
+    private Integer getInteger(Row row, int cellIndex) {
+        Cell cell = row.getCell(cellIndex);
+        if (cell == null) return null;
 
-        return switch (cell.getCellType()) {
-            case NUMERIC -> (int) cell.getNumericCellValue();
-            case STRING -> {
-                String v = cell.getStringCellValue()
-                        .replace(" dni", "")
-                        .trim();
-                yield v.isEmpty() ? 0 : Integer.parseInt(v);
-            }
-            default -> 0;
-        };
+        if (cell.getCellType() == CellType.NUMERIC) {
+            return (int) cell.getNumericCellValue();
+        }
+
+        if (cell.getCellType() == CellType.STRING) {
+            String value = cell.getStringCellValue();
+            value = value.replaceAll("[^0-9]", "");
+            if (value.isEmpty()) return null;
+            return Integer.parseInt(value);
+        }
+
+        return null;
     }
+
 }

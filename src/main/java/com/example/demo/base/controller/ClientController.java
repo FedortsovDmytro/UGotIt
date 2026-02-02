@@ -1,9 +1,9 @@
-package com.example.demo.controller;
+package com.example.demo.base.controller;
 
-import com.example.demo.dto.ClientResponse;
-import com.example.demo.dto.CreateClientRequest;
-import com.example.demo.entity.Client;
-import com.example.demo.service.ClientService;
+import com.example.demo.base.dto.ClientResponse;
+import com.example.demo.base.dto.CreateClientRequest;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.service.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

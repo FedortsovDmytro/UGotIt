@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.base.entity;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "receivable_aging")
@@ -27,6 +28,16 @@ public class ReceivableAging {
     @Column(nullable = false)
     private BigDecimal notDue;
 
+    @Column(name = "calculated_at")
+    private LocalDateTime calculatedAt;
+
+    public LocalDateTime getCalculatedAt() {
+        return calculatedAt;
+    }
+
+    public void setCalculatedAt(LocalDateTime calculatedAt) {
+        this.calculatedAt = calculatedAt;
+    }
     private BigDecimal overdue1to7;
     private BigDecimal overdue8to14;
     private BigDecimal overdue15to30;

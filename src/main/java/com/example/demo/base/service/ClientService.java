@@ -1,8 +1,8 @@
-package com.example.demo.service;
+package com.example.demo.base.service;
 
-import com.example.demo.entity.Client;
-import com.example.demo.entity.ClientStatus;
-import com.example.demo.repository.ClientRepository;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.repository.ClientRepository;
 import com.opencsv.CSVReader;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
@@ -10,10 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.demo.entity.ClientStatus.ACTIVE;
+import static com.example.demo.base.entity.ClientStatus.ACTIVE;
 
 @Service
 public class ClientService {

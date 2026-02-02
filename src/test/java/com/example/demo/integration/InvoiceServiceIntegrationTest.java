@@ -1,7 +1,8 @@
 package com.example.demo.integration;
 
-import com.example.demo.entity.*;
-import com.example.demo.service.*;
+import com.example.demo.base.entity.*;
+import com.example.demo.base.service.*;
+import com.example.demo.risk.RiskLevel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

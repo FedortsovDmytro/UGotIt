@@ -1,6 +1,6 @@
 package com.example.demo.domain;
 
-import com.example.demo.entity.*;
+import com.example.demo.base.entity.*;
 import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;

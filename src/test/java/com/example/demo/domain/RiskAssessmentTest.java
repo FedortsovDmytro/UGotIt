@@ -1,10 +1,11 @@
 package com.example.demo.domain;
 
-import com.example.demo.entity.Client;
-import com.example.demo.entity.ClientStatus;
-import com.example.demo.entity.RiskAssessment;
-import com.example.demo.entity.RiskLevel;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.RiskAssessment;
+import com.example.demo.risk.RiskLevel;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,7 +16,7 @@ class RiskAssessmentTest {
     void shouldBuildRiskAssessmentCorrectly() {
         Client client = new Client.Builder("ext1", "Client1", ClientStatus.ACTIVE).build();
 
-        RiskAssessment ra = new RiskAssessment.Builder(client, 75, RiskLevel.MEDIUM)
+        RiskAssessment ra = new RiskAssessment.Builder(client, 75, RiskLevel.MEDIUM, LocalDateTime.now())
                 .reasons("Late payments")
                 .recommendation("Reduce limit")
                 .build();
@@ -33,9 +34,9 @@ class RiskAssessmentTest {
         Client client = new Client.Builder("ext1", "Client1", ClientStatus.ACTIVE).build();
 
         assertThrows(IllegalStateException.class,
-                () -> new RiskAssessment.Builder(null, 50, RiskLevel.LOW).build());
+                () -> new RiskAssessment.Builder(null, 50, RiskLevel.LOW,LocalDateTime.now()).build());
 
         assertThrows(IllegalStateException.class,
-                () -> new RiskAssessment.Builder(client, 50, null).build());
+                () -> new RiskAssessment.Builder(client, 50, null,LocalDateTime.now()).build());
     }
 }
