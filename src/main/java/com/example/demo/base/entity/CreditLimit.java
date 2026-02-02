@@ -121,4 +121,11 @@ public class CreditLimit {
     public void setUsedAmount(BigDecimal usedAmount) {
         this.usedAmount = usedAmount;
     }
+    public void increaseUsedAmount(BigDecimal amount) {
+        if (!canCover(amount)) {
+            throw new IllegalStateException("Credit limit exceeded");
+        }
+        this.usedAmount = this.usedAmount.add(amount);
+    }
+
 }

@@ -38,7 +38,7 @@ public class Client {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Invoice> invoices = new ArrayList<>();
 
-    protected Client() {}
+    public Client() {}
 
     private Client(Builder builder) {
         this.externalId = builder.externalId;
@@ -119,5 +119,29 @@ public class Client {
 
     public List<Invoice> getInvoices() {
         return invoices;
+    }
+
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setStatus(ClientStatus status) {
+        this.status = status;
+    }
+
+    public void setCreditLimit(BigDecimal creditLimit) {
+        this.creditLimit = creditLimit;
+    }
+
+    public void setRatingExternal(String ratingExternal) {
+        this.ratingExternal = ratingExternal;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
     }
 }

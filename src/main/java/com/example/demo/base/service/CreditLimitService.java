@@ -3,7 +3,7 @@ package com.example.demo.service;
 import com.example.demo.entity.Client;
 import com.example.demo.entity.CreditLimit;
 import com.example.demo.repository.ClientRepository;
-import com.example.demo.repository.CreditLimitRepository;
+import com.example.demo.repository.CreditLimitExcelRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -11,11 +11,11 @@ import java.time.LocalDate;
 @Service
 public class CreditLimitService {
 
-    private final CreditLimitRepository creditLimitRepository;
+    private final CreditLimitExcelRepository creditLimitRepository;
     private final ClientRepository clientRepository;
 
     public CreditLimitService(
-            CreditLimitRepository creditLimitRepository,
+            CreditLimitExcelRepository creditLimitRepository,
             ClientRepository clientRepository
     ) {
         this.creditLimitRepository = creditLimitRepository;
