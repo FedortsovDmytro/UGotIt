@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Upload Excel</title>
+</head>
+<body>
+<h1>Upload Excel Files</h1>
+
+<form method="post" th:action="@{/upload-file}" enctype="multipart/form-data">
+    <label>Select File Type:</label>
+    <select name="fileType" required>
+        <option value="bisnode">Bisnode</option>
+        <option value="receivable-aging">Receivable Aging</option>
+        <option value="clients">Clients</option>
+        <option value="credit-limits">Credit Limits</option>
+    </select>
+    <br/><br/>
+
+    <label>Select Excel File:</label>
+    <input type="file" name="file" accept=".xlsx" required/>
+    <br/><br/>
+
+    <!-- Optional date for receivable-aging -->
+    <div id="reportDateDiv">
+        <label>Report Date (for Receivable Aging):</label>
+        <input type="date" name="reportDate"/>
+    </div>
+    <br/>
+
+    <button type="submit">Upload</button>
+</form>
+
+<script>
+    // Show report date only for receivable-aging
+    const fileTypeSelect = document.querySelector('select[name="fileType"]');
+    const reportDateDiv = document.getElementById('reportDateDiv');
+
+    function toggleDate() {
+        if (fileTypeSelect.value === 'receivable-aging') {
+            reportDateDiv.style.display = 'block';
+        } else {
+            reportDateDiv.style.display = 'none';
+        }
+    }
+
+    toggleDate();
+    fileTypeSelect.addEventListener('change', toggleDate);
+</script>
+</body>
+</html>
