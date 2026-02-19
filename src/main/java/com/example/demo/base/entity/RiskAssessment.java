@@ -16,6 +16,10 @@ public class RiskAssessment {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Client client;
 
+    public Set<RiskSignalEntity> getSignals() {
+        return signals;
+    }
+
     @Column(nullable = false)
     private int riskScore;
 
@@ -34,7 +38,7 @@ public class RiskAssessment {
     @OneToMany(mappedBy = "riskAssessment", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RiskSignalEntity> signals;
 
-    protected RiskAssessment() {}
+    public RiskAssessment() {}
 
     private RiskAssessment(Builder b) {
         this.client = b.client;
@@ -135,4 +139,7 @@ public class RiskAssessment {
     public LocalDateTime getCalculatedAt() {
         return calculatedAt;
     }
+
+
+
 }

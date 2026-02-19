@@ -118,4 +118,36 @@ public class Invoice {
     public Client getClient() {
         return client;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public void setIssueDate(LocalDate issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public void setStatus(InvoiceStatus status) {
+        this.status = status;
+    }
 }

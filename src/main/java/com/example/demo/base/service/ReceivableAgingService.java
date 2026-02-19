@@ -47,4 +47,8 @@ public class ReceivableAgingService {
 
         return result;
     }
+
+    public ReceivableAging findByExternalId(String externalId) {
+        return repository.findByClientExternalId(externalId);
+    }
 }

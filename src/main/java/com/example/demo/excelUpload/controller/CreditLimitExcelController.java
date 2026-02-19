@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 
-@Controller
 @RestController
 @RequestMapping("/credit-limits")
 public class CreditLimitExcelController {

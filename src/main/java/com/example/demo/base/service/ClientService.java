@@ -9,6 +9,8 @@ import com.example.demo.base.repository.ClientRepository;
 import com.example.demo.risk.RiskLevel;
 import com.opencsv.CSVReader;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,9 +42,11 @@ public class ClientService {
     }
 
     public Client getByExternalId(String externalId) {
-        return clientRepository.findByExternalId(externalId)
-                .orElseThrow(() -> new IllegalStateException("Client not found"));
+        return clientRepository.findByExternalId(externalId.trim())
+                .orElseThrow(() ->
+                        new IllegalStateException("Client not found: " + externalId));
     }
+
     public Client getClient(Long id) {
         return clientRepository.findById(id).orElseThrow(() -> new IllegalStateException("Client not found"));
     }
@@ -147,4 +151,7 @@ public class ClientService {
         return dashboard;
     }
 
+    public Page<Client> findAll(Pageable pageable) {
+        return clientRepository.findAll(pageable);
+    }
 }

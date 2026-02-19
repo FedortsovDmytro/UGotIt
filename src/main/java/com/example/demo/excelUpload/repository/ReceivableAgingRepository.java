@@ -14,4 +14,6 @@ public interface ReceivableAgingRepository
     Optional<ReceivableAging> findTopByClientOrderByCalculatedAtDesc(Client client);
 
     boolean existsCurrentByClient(Client client);
+
+    ReceivableAging findByClientExternalId(String externalId);
 }

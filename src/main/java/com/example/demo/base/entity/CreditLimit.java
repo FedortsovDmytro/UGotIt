@@ -39,7 +39,6 @@ public class CreditLimit {
     }
 
 
-
     public static class Builder {
         private final Client client;
         private final BigDecimal limitAmount;
@@ -128,4 +127,7 @@ public class CreditLimit {
         this.usedAmount = this.usedAmount.add(amount);
     }
 
+    public void setPaymentTermsDays(int paymentTermsDays) {
+        this.paymentTermsDays = paymentTermsDays;
+    }
 }

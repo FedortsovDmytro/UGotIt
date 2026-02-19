@@ -1,61 +1,263 @@
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title th:text="#{risk.details.title}">Risk Details</title>-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+
+<!--<body class="bg-light">-->
+
+<!--<div class="container py-4">-->
+
+<!--    &lt;!&ndash; BACK BUTTON &ndash;&gt;-->
+<!--    <div class="mb-3">-->
+<!--        <a th:href="@{/dashboard}"-->
+<!--           class="btn btn-outline-secondary btn-sm"-->
+<!--           th:text="#{button.back}">-->
+<!--            ← Back-->
+<!--        </a>-->
+<!--    </div>-->
+
+<!--    <div class="card shadow-sm border-0">-->
+<!--        <div class="card-body">-->
+
+<!--            &lt;!&ndash; CLIENT HEADER &ndash;&gt;-->
+<!--            <div class="mb-4">-->
+<!--                <h4 class="fw-bold mb-1" th:text="${client.name}">Client Name</h4>-->
+<!--                <div class="text-muted">-->
+<!--                    <span th:text="#{client.id}">Client ID</span>:-->
+<!--                    <span th:text="${client.externalId}"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <hr>-->
+
+<!--            &lt;!&ndash; RISK LEVEL &ndash;&gt;-->
+<!--            <div class="mb-3">-->
+<!--                <h5 class="mb-2" th:text="#{risk.level}">Risk Level:</h5>-->
+
+<!--                <span class="badge px-3 py-2 fs-6 bg-danger"-->
+<!--                      th:if="${risk.riskLevel.name() == 'CRITICAL'}"-->
+<!--                      th:text="#{risk.level.critical}">-->
+<!--                    CRITICAL-->
+<!--                </span>-->
+
+<!--                <span class="badge px-3 py-2 fs-6 bg-warning text-dark"-->
+<!--                      th:if="${risk.riskLevel.name() == 'HIGH'}"-->
+<!--                      th:text="#{risk.level.high}">-->
+<!--                    HIGH-->
+<!--                </span>-->
+
+<!--                <span class="badge px-3 py-2 fs-6 bg-info text-dark"-->
+<!--                      th:if="${risk.riskLevel.name() == 'MEDIUM'}"-->
+<!--                      th:text="#{risk.level.medium}">-->
+<!--                    MEDIUM-->
+<!--                </span>-->
+
+<!--                <span class="badge px-3 py-2 fs-6 bg-success"-->
+<!--                      th:if="${risk.riskLevel.name() == 'LOW'}"-->
+<!--                      th:text="#{risk.level.low}">-->
+<!--                    LOW-->
+<!--                </span>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; SCORE &ndash;&gt;-->
+<!--            <p>-->
+<!--                <strong th:text="#{risk.score}">Score:</strong>-->
+<!--                <span class="ms-2" th:text="${risk.riskScore}"></span>-->
+<!--            </p>-->
+
+<!--            &lt;!&ndash; REASONS &ndash;&gt;-->
+<!--            <p>-->
+<!--                <strong th:text="#{risk.reasons}">Reasons:</strong><br>-->
+<!--                <span th:text="${risk.reasons}"></span>-->
+<!--            </p>-->
+
+<!--            &lt;!&ndash; RECOMMENDATION &ndash;&gt;-->
+<!--            <p>-->
+<!--                <strong th:text="#{risk.recommendation}">Recommendation:</strong><br>-->
+<!--                <span th:text="${risk.recommendation}"></span>-->
+<!--            </p>-->
+
+<!--            &lt;!&ndash; CALCULATED DATE &ndash;&gt;-->
+<!--            <p>-->
+<!--                <strong th:text="#{risk.calculatedAt}">Calculated At:</strong><br>-->
+<!--                <span th:text="${#temporals.format(risk.calculatedAt, 'yyyy-MM-dd HH:mm')}"></span>-->
+<!--            </p>-->
+
+<!--            <hr>-->
+
+<!--            &lt;!&ndash; CREDIT DATA &ndash;&gt;-->
+<!--            <h5 class="mb-3" th:text="#{credit.data}">Credit Data</h5>-->
+
+<!--            <div class="row g-4">-->
+
+<!--                &lt;!&ndash; CREDIT LIMIT &ndash;&gt;-->
+<!--                <div class="col-md-4">-->
+<!--                    <div class="border rounded p-3 bg-white">-->
+<!--                        <strong th:text="#{credit.limit}">Credit Limit:</strong><br>-->
+<!--                        <span th:if="${creditLimit.present}"-->
+<!--                              th:text="${creditLimit.get().limitAmount}"></span>-->
+<!--                        <span th:unless="${creditLimit.present}"-->
+<!--                              th:text="#{common.na}">N/A</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; USED AMOUNT &ndash;&gt;-->
+<!--                <div class="col-md-4">-->
+<!--                    <div class="border rounded p-3 bg-white">-->
+<!--                        <strong th:text="#{credit.used}">Used Amount:</strong><br>-->
+<!--                        <span th:if="${creditLimit.present}"-->
+<!--                              th:text="${creditLimit.get().usedAmount}"></span>-->
+<!--                        <span th:unless="${creditLimit.present}"-->
+<!--                              th:text="#{common.na}">N/A</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; PAYMENT TERMS &ndash;&gt;-->
+<!--                <div class="col-md-4">-->
+<!--                    <div class="border rounded p-3 bg-white">-->
+<!--                        <strong th:text="#{credit.paymentTerms}">Payment Terms (days):</strong><br>-->
+<!--                        <span th:if="${aging != null}"-->
+<!--                              th:text="${aging.paymentTermsDays}"></span>-->
+<!--                        <span th:unless="${aging != null}"-->
+<!--                              th:text="#{common.na}">N/A</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Risk Details</title>
+    <meta charset="UTF-8">
+    <title th:text="#{risk.details.title}">Risk Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-light">
 
-<div class="container mt-4">
+<div class="container py-4">
 
-    <a href="/dashboard" class="btn btn-sm btn-secondary mb-3">← Back</a>
+    <!-- BACK BUTTON -->
+    <div class="mb-3">
+        <a th:href="@{/dashboard}" class="btn btn-outline-secondary btn-sm" th:text="#{button.back}">
+            ← Back
+        </a>
+    </div>
 
-    <div class="card p-4">
-        <h4 th:text="${client.name}">Client name</h4>
-        <p class="text-muted">Client ID: <span th:text="${client.externalId}"></span></p>
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
 
-        <hr>
+            <!-- CLIENT HEADER -->
+            <div class="mb-4">
+                <h4 class="fw-bold mb-1" th:text="${client.name}">Client Name</h4>
+                <div class="text-muted">
+                    <span th:text="#{client.id}">Client ID</span>:
+                    <span th:text="${client.externalId}"></span>
+                </div>
+            </div>
 
-        <h5>
-            Risk Level:
-            <span class="badge bg-danger"
-                  th:if="${risk.riskLevel.name() == 'CRITICAL'}">CRITICAL</span>
+            <hr>
 
-            <span class="badge bg-warning text-dark"
-                  th:if="${risk.riskLevel.name() == 'HIGH'}">HIGH</span>
+            <!-- RISK LEVEL -->
+            <div class="mb-3">
+                <h5 class="mb-2" th:text="#{risk.level}">Risk Level:</h5>
 
-            <span class="badge bg-info text-dark"
-                  th:if="${risk.riskLevel.name() == 'MEDIUM'}">MEDIUM</span>
+                <span class="badge px-3 py-2 fs-6 bg-danger"
+                      th:if="${risk.riskLevel.name() == 'CRITICAL'}"
+                      th:text="#{risk.level.critical}">
+                    CRITICAL
+                </span>
 
-            <span class="badge bg-success"
-                  th:if="${risk.riskLevel.name() == 'LOW'}">LOW</span>
-        </h5>
+                <span class="badge px-3 py-2 fs-6 bg-warning text-dark"
+                      th:if="${risk.riskLevel.name() == 'HIGH'}"
+                      th:text="#{risk.level.high}">
+                    HIGH
+                </span>
 
-        <p class="mt-3">
-            <strong>Score:</strong>
-            <span th:text="${risk.riskScore}"></span>
-        </p>
+                <span class="badge px-3 py-2 fs-6 bg-info text-dark"
+                      th:if="${risk.riskLevel.name() == 'MEDIUM'}"
+                      th:text="#{risk.level.medium}">
+                    MEDIUM
+                </span>
 
-        <p>
-            <strong>Reasons:</strong><br>
-            <span th:text="${risk.reasons}"></span>
-        </p>
+                <span class="badge px-3 py-2 fs-6 bg-success"
+                      th:if="${risk.riskLevel.name() == 'LOW'}"
+                      th:text="#{risk.level.low}">
+                    LOW
+                </span>
+            </div>
 
-        <p>
-            <strong>Recommendation:</strong><br>
-            <span th:text="${risk.recommendation}"></span>
-        </p>
-        <p>
-            <strong>Calculated At::</strong><br>
-            <span th:text="${risk.calculatedAt}"></span>
-        </p>
-        <hr>
+            <!-- SCORE -->
+            <p>
+                <strong th:text="#{risk.score}">Score:</strong>
+                <span class="ms-2" th:text="${risk.riskScore}"></span>
+            </p>
 
-        <h6>Level</h6>
-        <ul>
-            <li th:each="signal : ${risk.riskLevel}"
-                th:text="${signal}">SIGNAL</li>
-        </ul>
+            <!-- REASONS -->
+            <p>
+                <strong th:text="#{risk.reasons}">Reasons:</strong><br>
+                <span th:text="${localizedReasons != null ? localizedReasons : risk.reasons}"></span>
+            </p>
+
+            <!-- RECOMMENDATION -->
+            <p>
+                <strong th:text="#{risk.recommendation}">Recommendation:</strong><br>
+                <span th:text="${localizedRecommendation != null ? localizedRecommendation : risk.recommendation}"></span>
+            </p>
+
+            <!-- CALCULATED DATE -->
+            <p>
+                <strong th:text="#{risk.calculatedAt}">Calculated At:</strong><br>
+                <span th:text="${#temporals.format(risk.calculatedAt, 'yyyy-MM-dd HH:mm')}"></span>
+            </p>
+
+            <hr>
+
+            <!-- CREDIT DATA -->
+            <h5 class="mb-3" th:text="#{credit.data}">Credit Data</h5>
+
+            <div class="row g-4">
+                <!-- CREDIT LIMIT -->
+                <div class="col-md-4">
+                    <div class="border rounded p-3 bg-white">
+                        <strong th:text="#{credit.limit}">Credit Limit:</strong><br>
+                        <span th:if="${creditLimit.present}" th:text="${creditLimit.get().limitAmount}"></span>
+                        <span th:unless="${creditLimit.present}" th:text="#{common.na}">N/A</span>
+                    </div>
+                </div>
+
+                <!-- USED AMOUNT -->
+                <div class="col-md-4">
+                    <div class="border rounded p-3 bg-white">
+                        <strong th:text="#{credit.used}">Used Amount:</strong><br>
+                        <span th:if="${creditLimit.present}" th:text="${creditLimit.get().usedAmount}"></span>
+                        <span th:unless="${creditLimit.present}" th:text="#{common.na}">N/A</span>
+                    </div>
+                </div>
+
+                <!-- PAYMENT TERMS -->
+                <div class="col-md-4">
+                    <div class="border rounded p-3 bg-white">
+                        <strong th:text="#{credit.paymentTerms}">Payment Terms (days):</strong><br>
+                        <span th:if="${aging != null}" th:text="${aging.paymentTermsDays}"></span>
+                        <span th:unless="${aging != null}" th:text="#{common.na}">N/A</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
 </div>

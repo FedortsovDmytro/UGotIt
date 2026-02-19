@@ -97,26 +97,26 @@ public class ReceivableAgingExcelService {
             default -> null;
         };
     }
-//
+    //
 //    private BigDecimal read(Row r, int idx) {
 //        Cell cell = r.getCell(idx);
 //        if (cell == null) return BigDecimal.ZERO;
 //
 //        return BigDecimal.valueOf(cell.getNumericCellValue());
 //    }
-private BigDecimal read(Row r, int idx) {
-    Cell cell = r.getCell(idx);
-    if (cell == null) return BigDecimal.ZERO;
+    private BigDecimal read(Row r, int idx) {
+        Cell cell = r.getCell(idx);
+        if (cell == null) return BigDecimal.ZERO;
 
-    return switch (cell.getCellType()) {
-        case NUMERIC -> BigDecimal.valueOf(cell.getNumericCellValue());
-        case STRING -> {
-            String val = cell.getStringCellValue().replace(",", ".").trim();
-            yield val.isEmpty() ? BigDecimal.ZERO : new BigDecimal(val);
-        }
-        default -> BigDecimal.ZERO;
-    };
-}
+        return switch (cell.getCellType()) {
+            case NUMERIC -> BigDecimal.valueOf(cell.getNumericCellValue());
+            case STRING -> {
+                String val = cell.getStringCellValue().replace(",", ".").trim();
+                yield val.isEmpty() ? BigDecimal.ZERO : new BigDecimal(val);
+            }
+            default -> BigDecimal.ZERO;
+        };
+    }
 
     private Integer parseDays(Cell cell) {
         if (cell == null) return null;

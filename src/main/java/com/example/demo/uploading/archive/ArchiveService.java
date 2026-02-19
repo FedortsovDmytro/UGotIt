@@ -1,45 +1,48 @@
-package com.example.demo.uploading;
+package com.example.demo.uploading.archive;
 
 import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.Invoice;
 import com.example.demo.base.repository.ClientRepository;
+import com.example.demo.base.repository.InvoiceRepository;
+import com.example.demo.base.service.InvoiceService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-
 @Service
 public class ArchiveService {
 
     private final ClientRepository clientRepository;
     private final ArchivedClientRepository archivedClientRepository;
+    private final InvoiceRepository invoiceRepository;
+    private final ArchivedInvoiceRepository archivedInvoiceRepository;
 
     public ArchiveService(
+            ArchivedInvoiceRepository archivedInvoiceRepository,
+            InvoiceRepository invoiceRepository,
             ClientRepository clientRepository,
             ArchivedClientRepository archivedClientRepository
     ) {
+        this.archivedInvoiceRepository = archivedInvoiceRepository;
+        this.invoiceRepository = invoiceRepository;
         this.clientRepository = clientRepository;
         this.archivedClientRepository = archivedClientRepository;
     }
-    
-    @Transactional
-    public void archiveAndRemove(Client client, String reason) {
-        ArchivedClient archivedClient = ArchivedClient.from(client, reason);
-
-        archivedClientRepository.save(archivedClient);
-        clientRepository.delete(client);
-    }
-
 
     @Transactional
-    public boolean archiveIfExists(String externalId, String reason) {
-        return clientRepository.findByExternalId(externalId)
-                .map(client -> {
-                    archiveAndRemove(client, reason);
-                    return true;
-                })
-                .orElse(false);
+    public void archiveClientWithInvoices(Client client, ArchiveReason reason) {
+
+        var invoices = invoiceRepository.findByClient(client);
+        for (Invoice invoice : invoices) {
+            ArchivedInvoice archived = ArchivedInvoice.fromInvoice(invoice);
+            archivedInvoiceRepository.save(archived);
+        }
+        invoiceRepository.deleteAll(invoices);
+
+
+        client.setStatus(ClientStatus.ARCHIVED);
+        archivedClientRepository.save(ArchivedClient.from(client, reason.name()));
+
+        clientRepository.save(client);
     }
 
-    public void archive(Client client, String replacedByExcelUpload) {
-    }
 }

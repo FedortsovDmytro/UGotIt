@@ -23,9 +23,9 @@ public class RiskAssessmentService {
     private final CreditLimitService creditLimitService;
     private final ReceivableAgingService agingService;
     private final BisnodeService bisnodeService;
-
-    public RiskAssessmentService(RiskAssessmentRepository repository,CreditLimitService creditLimitService,ReceivableAgingService receivableAgingService, BisnodeService bisnodeService) {
-
+ private final ClientService clientService;
+    public RiskAssessmentService(ClientService clientService, RiskAssessmentRepository repository,CreditLimitService creditLimitService,ReceivableAgingService receivableAgingService, BisnodeService bisnodeService) {
+this.clientService=clientService;
         this.repository = repository;
         this.bisnodeService = bisnodeService;
         this.calculator = new RiskScoreCalculator();
@@ -72,14 +72,27 @@ public class RiskAssessmentService {
     }
 
     public Optional<RiskAssessment> getLatestForClient(Client client) {
-        return repository
-                .findTopByClientOrderByCalculatedAtDesc(client);
+        List<RiskAssessment> assessments = repository.findAllByClientOrderByCalculatedAtDesc(client);
+        if (assessments.isEmpty()) return Optional.empty();
+        return Optional.of(assessments.get(0));
     }
+
+
+
 
     @Transactional
     public void recalculate(Client client) {
         repository.deleteByClient(client);
         assessAndSave(client);
+    }
+
+    public void calculateForAllClients() {
+
+        List<Client> clients =clientService.getAll();
+
+        for (Client client : clients) {
+            assessAndSave(client);
+        }
     }
 
 }

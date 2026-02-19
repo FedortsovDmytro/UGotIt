@@ -1,6 +1,7 @@
 package com.example.demo.risk;
 
 import com.example.demo.base.entity.*;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -8,6 +9,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Component
 public class RiskScoreCalculator {
@@ -31,8 +33,9 @@ public class RiskScoreCalculator {
         addExternalRatingSignals(bisnode, signals);
         addNewClientSignal(client, signals);
         addMissingDataSignals(creditLimit, aging, bisnode, signals);
+        Locale currentLocale = LocaleContextHolder.getLocale();
+        return engine.assess(signals, currentLocale);
 
-        return engine.assess(signals);
     }
 
     private void addOverdueSignals(ReceivableAging a, List<RiskSignal> signals) {
@@ -59,7 +62,6 @@ public class RiskScoreCalculator {
         }
     }
 
-    // ===== LIMIT USAGE =====
     private void addLimitUsageSignals(CreditLimit cl, List<RiskSignal> signals) {
         if (cl == null || cl.getLimitAmount() == null || cl.getUsedAmount() == null)
             return;
@@ -75,7 +77,6 @@ public class RiskScoreCalculator {
             signals.add(RiskSignal.LIMIT_USAGE_70);
     }
 
-    // ===== EXTERNAL RATING =====
     private void addExternalRatingSignals(Bisnode b, List<RiskSignal> signals) {
         if (b == null || b.getRating() == null)
             return;
@@ -86,7 +87,6 @@ public class RiskScoreCalculator {
         }
     }
 
-    // ===== NEW CLIENT =====
     private void addNewClientSignal(Client client, List<RiskSignal> signals) {
         if (client == null || client.getCreatedAt() == null)
             return;
@@ -96,7 +96,6 @@ public class RiskScoreCalculator {
         }
     }
 
-    // ===== MISSING DATA =====
     private void addMissingDataSignals(
             CreditLimit creditLimit,
             ReceivableAging aging,

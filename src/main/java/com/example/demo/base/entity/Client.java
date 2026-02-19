@@ -68,6 +68,14 @@ public class Client {
         this.createdAt = now;
     }
 
+    public void setName(String clientName) {
+        this.fullName = clientName;
+    }
+
+    public void setClientId(String clientId) {
+        this.externalId = clientId;
+    }
+
     public static class Builder {
 
         private final String externalId;

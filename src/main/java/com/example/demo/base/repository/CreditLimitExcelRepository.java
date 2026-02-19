@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface CreditLimitExcelRepository extends JpaRepository<CreditLimit, Long> {
-    Optional<CreditLimit> findByClient(Client client);
+    Optional<CreditLimit> findByClient(Optional<Client> client);
 }

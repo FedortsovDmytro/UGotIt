@@ -1,59 +1,116 @@
+//package com.example.demo.risk;
+//
+//public enum RiskSignal {
+//
+//    OVERDUE_1_7(5, "Opóźnienia płatności 1–7 dni"),
+//    OVERDUE_8_14(10, "Opóźnienia płatności 8–14 dni"),
+//    OVERDUE_15_30(20, "Opóźnienia płatności 15–30 dni"),
+//    OVERDUE_31_60(45, "Opóźnienia płatności 31–60 dni"),
+//    OVERDUE_60_PLUS(80, "Opóźnienia płatności powyżej 60 dni"),
+//
+//    DSO_TREND_UP_5(5, "Wzrost DSO o 5 dni"),
+//    DSO_TREND_UP_10(10, "Wzrost DSO o 10 dni"),
+//    DSO_TREND_UP_15(20, "Wzrost DSO o 15 dni"),
+//
+//
+//    LIMIT_USAGE_70(5, "Wykorzystanie limitu powyżej 70%"),
+//    LIMIT_USAGE_85(15, "Wykorzystanie limitu powyżej 85%"),
+//    LIMIT_USAGE_95(35, "Wykorzystanie limitu powyżej 95%"),
+//
+//    EXTERNAL_RATING_C(15, "Rating zewnętrzny C"),
+//    EXTERNAL_RATING_D(35, "Rating zewnętrzny D"),
+//    NO_EXTERNAL_RATING(10, "Brak zewnętrznego ratingu"),
+//
+//
+//    NEW_CLIENT(10, "Nowy klient bez historii płatniczej"),
+//
+//
+//    NO_CREDIT_LIMIT_LOW_EXPOSURE(
+//            10,
+//            "Brak limitu kredytowego przy niskiej ekspozycji"
+//    ),
+//    NO_CREDIT_LIMIT_MEDIUM_EXPOSURE(
+//            30,
+//            "Brak limitu kredytowego przy średniej ekspozycji"
+//    ),
+//    NO_CREDIT_LIMIT_HIGH_EXPOSURE(
+//            60,
+//            "Brak limitu kredytowego przy wysokiej ekspozycji"
+//    ),
+//
+//
+//    NO_AGING_DATA(40, "Brak danych aging należności");
+//
+//    private final int weight;
+//    private final String description;
+//
+//    RiskSignal(int weight, String description) {
+//        this.weight = weight;
+//        this.description = description;
+//    }
+//
+//    public int getWeight() {
+//        return weight;
+//    }
+//
+//    public String getDescription() {
+//        return description;
+//    }
+//}
 package com.example.demo.risk;
+
+import java.util.Locale;
 
 public enum RiskSignal {
 
-    OVERDUE_1_7(5, "Opóźnienia płatności 1–7 dni"),
-    OVERDUE_8_14(10, "Opóźnienia płatności 8–14 dni"),
-    OVERDUE_15_30(20, "Opóźnienia płatności 15–30 dni"),
-    OVERDUE_31_60(45, "Opóźnienia płatności 31–60 dni"),
-    OVERDUE_60_PLUS(80, "Opóźnienia płatności powyżej 60 dni"),
+    OVERDUE_1_7(5, "Payment overdue 1–7 days", "Opóźnienia płatności 1–7 dni"),
+    OVERDUE_8_14(10, "Payment overdue 8–14 days", "Opóźnienia płatności 8–14 dni"),
+    OVERDUE_15_30(20, "Payment overdue 15–30 days", "Opóźnienia płatności 15–30 dni"),
+    OVERDUE_31_60(45, "Payment overdue 31–60 days", "Opóźnienia płatności 31–60 dni"),
+    OVERDUE_60_PLUS(80, "Payment overdue over 60 days", "Opóźnienia płatności powyżej 60 dni"),
 
-    DSO_TREND_UP_5(5, "Wzrost DSO o 5 dni"),
-    DSO_TREND_UP_10(10, "Wzrost DSO o 10 dni"),
-    DSO_TREND_UP_15(20, "Wzrost DSO o 15 dni"),
+    DSO_TREND_UP_5(5, "DSO increase by 5 days", "Wzrost DSO o 5 dni"),
+    DSO_TREND_UP_10(10, "DSO increase by 10 days", "Wzrost DSO o 10 dni"),
+    DSO_TREND_UP_15(20, "DSO increase by 15 days", "Wzrost DSO o 15 dni"),
 
+    LIMIT_USAGE_70(5, "Credit limit usage over 70%", "Wykorzystanie limitu powyżej 70%"),
+    LIMIT_USAGE_85(15, "Credit limit usage over 85%", "Wykorzystanie limitu powyżej 85%"),
+    LIMIT_USAGE_95(35, "Credit limit usage over 95%", "Wykorzystanie limitu powyżej 95%"),
 
-    LIMIT_USAGE_70(5, "Wykorzystanie limitu powyżej 70%"),
-    LIMIT_USAGE_85(15, "Wykorzystanie limitu powyżej 85%"),
-    LIMIT_USAGE_95(35, "Wykorzystanie limitu powyżej 95%"),
+    EXTERNAL_RATING_C(15, "External rating C", "Rating zewnętrzny C"),
+    EXTERNAL_RATING_D(35, "External rating D", "Rating zewnętrzny D"),
+    NO_EXTERNAL_RATING(10, "No external rating", "Brak zewnętrznego ratingu"),
 
-    EXTERNAL_RATING_C(15, "Rating zewnętrzny C"),
-    EXTERNAL_RATING_D(35, "Rating zewnętrzny D"),
-    NO_EXTERNAL_RATING(10, "Brak zewnętrznego ratingu"),
+    NEW_CLIENT(10, "New client without payment history", "Nowy klient bez historii płatniczej"),
 
+    NO_CREDIT_LIMIT_LOW_EXPOSURE(10, "No credit limit with low exposure", "Brak limitu kredytowego przy niskiej ekspozycji"),
+    NO_CREDIT_LIMIT_MEDIUM_EXPOSURE(30, "No credit limit with medium exposure", "Brak limitu kredytowego przy średniej ekspozycji"),
+    NO_CREDIT_LIMIT_HIGH_EXPOSURE(60, "No credit limit with high exposure", "Brak limitu kredytowego przy wysokiej ekspozycji"),
 
-    NEW_CLIENT(10, "Nowy klient bez historii płatniczej"),
-
-
-    NO_CREDIT_LIMIT_LOW_EXPOSURE(
-            10,
-            "Brak limitu kredytowego przy niskiej ekspozycji"
-    ),
-    NO_CREDIT_LIMIT_MEDIUM_EXPOSURE(
-            30,
-            "Brak limitu kredytowego przy średniej ekspozycji"
-    ),
-    NO_CREDIT_LIMIT_HIGH_EXPOSURE(
-            60,
-            "Brak limitu kredytowego przy wysokiej ekspozycji"
-    ),
-
-
-    NO_AGING_DATA(40, "Brak danych aging należności");
+    NO_AGING_DATA(40, "No receivables aging data", "Brak danych aging należności");
 
     private final int weight;
-    private final String description;
+    private final String descriptionEn;
+    private final String descriptionPl;
 
-    RiskSignal(int weight, String description) {
+    RiskSignal(int weight, String descriptionEn, String descriptionPl) {
         this.weight = weight;
-        this.description = description;
+        this.descriptionEn = descriptionEn;
+        this.descriptionPl = descriptionPl;
     }
 
     public int getWeight() {
         return weight;
     }
 
-    public String getDescription() {
-        return description;
+    /**
+     * Returns the description based on the current locale.
+     */
+    public String getDescription(Locale locale) {
+        if (locale != null && locale.getLanguage().equals(new Locale("pl").getLanguage())) {
+            return descriptionPl;
+        } else {
+            return descriptionEn;
+        }
     }
 }

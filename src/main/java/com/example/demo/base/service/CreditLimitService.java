@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
+
 @Service
 public class CreditLimitService {
 
@@ -43,7 +45,7 @@ public class CreditLimitService {
         Client client = clientRepository.findByExternalId(externalId)
                 .orElseThrow();
 
-        CreditLimit cl = creditLimitRepository.findByClient(client)
+        CreditLimit cl = creditLimitRepository.findByClient(Optional.of(client))
                 .orElseThrow();
 
         return cl.canCover(amount);
@@ -53,7 +55,7 @@ public class CreditLimitService {
         Client client = clientRepository.findByExternalId(externalId)
                 .orElseThrow();
 
-        CreditLimit cl = creditLimitRepository.findByClient(client)
+        CreditLimit cl = creditLimitRepository.findByClient(Optional.of(client))
                 .orElseThrow();
 
         cl.setUsedAmount(newUsedAmount);
@@ -63,12 +65,16 @@ public class CreditLimitService {
     public CreditLimit getCreditLimit(String externalId) {
         Client client = clientRepository.findByExternalId(externalId)
                 .orElseThrow();
-        CreditLimit cl = creditLimitRepository.findByClient(client)
+        CreditLimit cl = creditLimitRepository.findByClient(Optional.of(client))
                 .orElseThrow();
         return cl;
     }
 
     public CreditLimit findByClient(Client client) {
-        return creditLimitRepository.findByClient(client).orElse(null);
+        return creditLimitRepository.findByClient(Optional.ofNullable(client)).orElse(null);
+    }
+
+    public Optional<CreditLimit> findByExternalId(String externalId) {
+        return creditLimitRepository.findByClient(clientRepository.findByExternalId(externalId));
     }
 }

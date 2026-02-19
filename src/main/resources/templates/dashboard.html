@@ -1,8 +1,224 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>UGotIt Dashboard</title>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+<!--    <style>-->
+<!--        body { background-color: #f8f9fa; }-->
+<!--                .card { border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }-->
+<!--                .navbar { margin-bottom: 20px; }-->
+<!--                .badge { font-size: 0.85rem; }-->
+<!--                .action-btns button, .action-btns a { margin-right: 5px; }-->
+<!--        a.sort-link { text-decoration: none; color: inherit; }-->
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-primary">-->
+<!--    <div class="container-fluid">-->
+<!--        <span class="navbar-brand">UGotIt Dashboard</span>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<!--<div class="container">-->
+
+<!--    &lt;!&ndash; Welcome &ndash;&gt;-->
+<!--    <div class="mb-4">-->
+<!--        <h3>Welcome, <span th:text="${username}">User</span></h3>-->
+<!--        <p class="text-muted">Client portfolio overview</p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Summary &ndash;&gt;-->
+<!--    <div class="row mb-4">-->
+<!--        <div class="col-md-4">-->
+<!--            <div class="card p-3">-->
+<!--                <h6>Total Clients</h6>-->
+<!--                <h2 th:text="${totalItems}">0</h2>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-md-4">-->
+<!--            <div class="card p-3">-->
+<!--                <h6>Active Clients</h6>-->
+<!--                <h2 th:text="${activeItems}">0</h2>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-md-4">-->
+<!--            <div class="card p-3">-->
+<!--                <h6>Blocked Clients</h6>-->
+<!--                <h2 th:text="${blockedItems}">0</h2>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Risk explanation &ndash;&gt;-->
+<!--    <div class="card p-4 mb-4">-->
+<!--        <h5>Risk Level Overview</h5>-->
+<!--        <ul class="list-unstyled mb-0">-->
+<!--            <li><span class="badge bg-success">LOW</span> – Stable client</li>-->
+<!--            <li><span class="badge bg-info text-dark">MEDIUM</span> – Early warning signals</li>-->
+<!--            <li><span class="badge bg-warning text-dark">HIGH</span> – Serious risk</li>-->
+<!--            <li><span class="badge bg-danger">CRITICAL</span> – Immediate action required</li>-->
+<!--        </ul>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Clients table &ndash;&gt;-->
+<!--    <div class="card p-3">-->
+
+<!--        &lt;!&ndash; Top action bar &ndash;&gt;-->
+<!--        <div class="d-flex justify-content-between align-items-center mb-3">-->
+<!--            <h5 class="mb-0">Clients</h5>-->
+
+<!--            <div>-->
+<!--                <a th:href="@{/clients/upload}" class="btn btn-outline-primary">-->
+<!--                    Import Clients-->
+<!--                </a>-->
+
+<!--                <form th:action="@{/clients/calculate-risk}"-->
+<!--                      method="post"-->
+<!--                      style="display:inline-block;">-->
+<!--                    <button type="submit" class="btn btn-success">-->
+<!--                        Calculate Risk-->
+<!--                    </button>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <table class="table table-striped align-middle">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>-->
+<!--                    <a class="sort-link"-->
+<!--                       th:href="@{/dashboard(sort='id', dir=${sort == 'id' and dir == 'asc' ? 'desc' : 'asc'})}">-->
+<!--                        ID-->
+<!--                        <span th:if="${sort == 'id'}"-->
+<!--                              th:text="${dir == 'asc' ? '▲' : '▼'}"></span>-->
+<!--                    </a>-->
+<!--                </th>-->
+
+<!--                <th>-->
+<!--                    <a class="sort-link"-->
+<!--                       th:href="@{/dashboard(sort='name', dir=${sort == 'name' and dir == 'asc' ? 'desc' : 'asc'})}">-->
+<!--                        Company Name-->
+<!--                        <span th:if="${sort == 'name'}"-->
+<!--                              th:text="${dir == 'asc' ? '▲' : '▼'}"></span>-->
+<!--                    </a>-->
+<!--                </th>-->
+
+<!--                <th>-->
+<!--                    <a class="sort-link"-->
+<!--                       th:href="@{/dashboard(sort='risk', dir=${sort == 'risk' and dir == 'asc' ? 'desc' : 'asc'})}">-->
+<!--                        Risk-->
+<!--                        <span th:if="${sort == 'risk'}"-->
+<!--                              th:text="${dir == 'asc' ? '▲' : '▼'}"></span>-->
+<!--                    </a>-->
+<!--                </th>-->
+
+<!--                <th>Actions</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+
+<!--            <tbody>-->
+<!--            <tr th:each="row : ${items}">-->
+<!--                <td th:text="${row.client.externalId}">201188</td>-->
+<!--                <td th:text="${row.client.name}">Company Name</td>-->
+
+<!--                <td>-->
+<!--                    <span class="badge bg-secondary"-->
+<!--                          th:if="${row.riskLevel == null}">-->
+<!--NOT CALCULATED-->
+<!--                    </span>-->
+
+<!--                    <span class="badge bg-success"-->
+<!--                          th:if="${row.riskLevel?.name() == 'LOW'}">LOW</span>-->
+
+<!--                    <span class="badge bg-info text-dark"-->
+<!--                          th:if="${row.riskLevel?.name() == 'MEDIUM'}">MEDIUM</span>-->
+
+<!--                    <span class="badge bg-warning text-dark"-->
+<!--                          th:if="${row.riskLevel?.name() == 'HIGH'}">HIGH</span>-->
+
+<!--                    <span class="badge bg-danger"-->
+<!--                          th:if="${row.riskLevel?.name() == 'CRITICAL'}">CRITICAL</span>-->
+<!--                </td>-->
+
+<!--                <td class="action-btns">-->
+
+<!--                    &lt;!&ndash; Calculate per client &ndash;&gt;-->
+<!--                    <form th:action="@{'/clients/' + ${row.client.externalId} + '/risk-assessments'}"-->
+<!--                          method="post"-->
+<!--                          style="display:inline-block;">-->
+<!--                        <button type="submit"-->
+<!--                                class="btn btn-sm btn-outline-warning">-->
+<!--                            Calculate-->
+<!--                        </button>-->
+<!--                    </form>-->
+
+<!--                    &lt;!&ndash; Describe &ndash;&gt;-->
+<!--                    <a th:href="@{'/clients/' + ${row.client.externalId} + '/risk-assessments'}"-->
+<!--                       class="btn btn-sm btn-outline-primary"-->
+<!--                       th:if="${row.riskLevel != null}">-->
+<!--                        Describe-->
+<!--                    </a>-->
+
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--        <nav th:if="${totalPages > 1}">-->
+<!--            <ul class="pagination justify-content-center">-->
+
+<!--                &lt;!&ndash; Previous &ndash;&gt;-->
+<!--                <li class="page-item"-->
+<!--                    th:classappend="${currentPage == 0} ? 'disabled'">-->
+<!--                    <a class="page-link"-->
+<!--                       th:href="@{/dashboard(page=${currentPage - 1}, sort=${sort}, dir=${dir})}">-->
+<!--                        Previous-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash; Page numbers &ndash;&gt;-->
+<!--                <li class="page-item"-->
+<!--                    th:each="i : ${#numbers.sequence(0, totalPages - 1)}"-->
+<!--                    th:classappend="${i == currentPage} ? 'active'">-->
+
+<!--                    <a class="page-link"-->
+<!--                       th:href="@{/dashboard(page=${i}, sort=${sort}, dir=${dir})}"-->
+<!--                       th:text="${i + 1}">-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash; Next &ndash;&gt;-->
+<!--                <li class="page-item"-->
+<!--                    th:classappend="${currentPage == totalPages - 1} ? 'disabled'">-->
+<!--                    <a class="page-link"-->
+<!--                       th:href="@{/dashboard(page=${currentPage + 1}, sort=${sort}, dir=${dir})}">-->
+<!--                        Next-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--            </ul>-->
+<!--        </nav>-->
+
+<!--    </div>-->
+
+<!--</div>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>UGotIt Dashboard</title>
+    <title th:text="#{dashboard.title}">UGotIt Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,14 +229,33 @@
         .navbar { margin-bottom: 20px; }
         .badge { font-size: 0.85rem; }
         .action-btns button, .action-btns a { margin-right: 5px; }
+        a.sort-link { text-decoration: none; color: inherit; }
     </style>
 </head>
 
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <span class="navbar-brand">UGotIt Dashboard</span>
+        <span class="navbar-brand" th:text="#{dashboard.title}">UGotIt Dashboard</span>
+
+        <!-- Language switch -->
+        <div class="ms-auto">
+            <form method="get" class="d-flex">
+                <!-- English button -->
+                <button type="submit" name="lang" value="en"
+                        class="btn btn-sm btn-outline-light me-1"
+                        th:classappend="${#locale.language == 'en'} ? 'active'">
+                    EN
+                </button>
+
+                <!-- Polish button -->
+                <button type="submit" name="lang" value="pl"
+                        class="btn btn-sm btn-outline-light"
+                        th:classappend="${#locale.language == 'pl'} ? 'active'">
+                    PL
+                </button>
+            </form>
+        </div>
     </div>
 </nav>
 
@@ -28,29 +263,32 @@
 
     <!-- Welcome -->
     <div class="mb-4">
-        <h3>Welcome, <span th:text="${username}">User</span></h3>
-        <p class="text-muted">Client portfolio overview</p>
+        <h3>
+            <span th:text="#{dashboard.welcome}"></span>,
+            <span th:text="${username}">User</span>
+        </h3>
+        <p class="text-muted" th:text="#{dashboard.overview}">Client portfolio overview</p>
     </div>
 
     <!-- Summary -->
     <div class="row mb-4">
         <div class="col-md-4">
             <div class="card p-3">
-                <h6>Total Clients</h6>
+                <h6 th:text="#{dashboard.total.clients}">Total Clients</h6>
                 <h2 th:text="${totalItems}">0</h2>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card p-3">
-                <h6>Active Clients</h6>
+                <h6 th:text="#{dashboard.active.clients}">Active Clients</h6>
                 <h2 th:text="${activeItems}">0</h2>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card p-3">
-                <h6>Blocked Clients</h6>
+                <h6 th:text="#{dashboard.blocked.clients}">Blocked Clients</h6>
                 <h2 th:text="${blockedItems}">0</h2>
             </div>
         </div>
@@ -58,41 +296,59 @@
 
     <!-- Risk explanation -->
     <div class="card p-4 mb-4">
-        <h5>Risk Level Overview</h5>
+        <h5 th:text="#{dashboard.risk.legend}">Risk Level Overview</h5>
         <ul class="list-unstyled mb-0">
-            <li><span class="badge bg-success">LOW</span> – Stable client</li>
-            <li><span class="badge bg-warning text-dark">MEDIUM</span> – Early warning signals</li>
-            <li><span class="badge bg-danger">HIGH</span> – Serious risk</li>
-            <li><span class="badge bg-dark">CRITICAL</span> – Immediate action required</li>
+            <li><span class="badge bg-success" th:text="#{risk.level.low}">LOW</span> – <span th:text="#{risk.low}">Stable client</span></li>
+            <li><span class="badge bg-info text-dark" th:text="#{risk.level.medium}">MEDIUM</span> – <span th:text="#{risk.medium}">Early warning signals</span></li>
+            <li><span class="badge bg-warning text-dark" th:text="#{risk.level.high}">HIGH</span> – <span th:text="#{risk.high}">Serious risk</span></li>
+            <li><span class="badge bg-danger" th:text="#{risk.level.critical}">CRITICAL</span> – <span th:text="#{risk.critical}">Immediate action required</span></li>
         </ul>
     </div>
 
     <!-- Clients table -->
     <div class="card p-3">
-        <h5>Clients</h5>
 
-        <table class="table table-striped align-middle mt-3">
+        <!-- Top action bar -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0" th:text="#{dashboard.clients}">Clients</h5>
+
+            <div>
+                <a th:href="@{/clients/upload}" class="btn btn-outline-primary" th:text="#{dashboard.import}">Import Clients</a>
+
+                <form th:action="@{/clients/calculate-risk}" method="post" style="display:inline-block;">
+                    <button type="submit" class="btn btn-success" th:text="#{dashboard.calculate.all}">Calculate Risk</button>
+                </form>
+            </div>
+        </div>
+
+        <table class="table table-striped align-middle">
             <thead>
             <tr>
                 <th>
-                    <a th:href="@{/dashboard(sort='id', dir=${sort == 'id' and dir == 'asc' ? 'desc' : 'asc'})}">
-                        ID
+                    <a class="sort-link"
+                       th:href="@{/dashboard(sort='id', dir=${sort == 'id' and dir == 'asc' ? 'desc' : 'asc'})}">
+                        <span th:text="#{dashboard.id}">ID</span>
                         <span th:if="${sort == 'id'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span>
                     </a>
                 </th>
+
                 <th>
-                    <a th:href="@{/dashboard(sort='name', dir=${sort == 'name' and dir == 'asc' ? 'desc' : 'asc'})}">
-                        Nazwa firmy
+                    <a class="sort-link"
+                       th:href="@{/dashboard(sort='name', dir=${sort == 'name' and dir == 'asc' ? 'desc' : 'asc'})}">
+                        <span th:text="#{dashboard.company}">Company Name</span>
                         <span th:if="${sort == 'name'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span>
                     </a>
                 </th>
+
                 <th>
-                    <a th:href="@{/dashboard(sort='risk', dir=${sort == 'risk' and dir == 'asc' ? 'desc' : 'asc'})}">
-                        Risk
+                    <a class="sort-link"
+                       th:href="@{/dashboard(sort='risk', dir=${sort == 'risk' and dir == 'asc' ? 'desc' : 'asc'})}">
+                        <span th:text="#{dashboard.risk}">Risk</span>
                         <span th:if="${sort == 'risk'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span>
                     </a>
                 </th>
-                <th>Actions</th>
+
+                <th th:text="#{dashboard.actions}">Actions</th>
             </tr>
             </thead>
 
@@ -100,32 +356,43 @@
             <tr th:each="row : ${items}">
                 <td th:text="${row.client.externalId}">201188</td>
                 <td th:text="${row.client.name}">Company Name</td>
+
                 <td>
-                    <span class="badge bg-secondary" th:if="${row.riskLevel == null}">NOT CALCULATED</span>
-                    <span class="badge bg-success" th:if="${row.riskLevel?.name() == 'LOW'}">LOW</span>
-                    <span class="badge bg-warning text-dark" th:if="${row.riskLevel?.name() == 'MEDIUM'}">MEDIUM</span>
-                    <span class="badge bg-danger" th:if="${row.riskLevel?.name() == 'HIGH'}">HIGH</span>
-                    <span class="badge bg-dark" th:if="${row.riskLevel?.name() == 'CRITICAL'}">CRITICAL</span>
+                    <span class="badge bg-secondary" th:if="${row.riskLevel == null}" th:text="#{risk.not.calculated}">NOT CALCULATED</span>
+
+                    <span class="badge bg-success" th:if="${row.riskLevel?.name() == 'LOW'}" th:text="#{risk.level.low}">LOW</span>
+                    <span class="badge bg-info text-dark" th:if="${row.riskLevel?.name() == 'MEDIUM'}" th:text="#{risk.level.medium}">MEDIUM</span>
+                    <span class="badge bg-warning text-dark" th:if="${row.riskLevel?.name() == 'HIGH'}" th:text="#{risk.level.high}">HIGH</span>
+                    <span class="badge bg-danger" th:if="${row.riskLevel?.name() == 'CRITICAL'}" th:text="#{risk.level.critical}">CRITICAL</span>
                 </td>
+
                 <td class="action-btns">
-                    <!-- Recalculate -->
-                    <form th:action="@{'/clients/' + ${row.client.externalId} + '/risk-assessments/recalculate'}"
-                          method="post"
-                          th:if="${row.riskLevel != null}"
-                          style="display:inline-block;">
-                        <button type="submit" class="btn btn-sm btn-outline-warning">Recalculate</button>
+                    <form th:action="@{'/clients/' + ${row.client.externalId} + '/risk-assessments'}" method="post" style="display:inline-block;">
+                        <button type="submit" class="btn btn-sm btn-outline-warning" th:text="#{dashboard.calculate}">Calculate</button>
                     </form>
 
-                    <!-- Describe -->
                     <a th:href="@{'/clients/' + ${row.client.externalId} + '/risk-assessments'}"
-                       class="btn btn-sm btn-outline-primary"
-                       th:if="${row.riskLevel != null}">
-                        Describe
-                    </a>
+                       class="btn btn-sm btn-outline-primary" th:if="${row.riskLevel != null}" th:text="#{dashboard.describe}">Describe</a>
                 </td>
             </tr>
             </tbody>
         </table>
+
+        <!-- Pagination (unchanged logic) -->
+        <nav th:if="${totalPages > 1}">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                    <a class="page-link" th:href="@{/dashboard(page=${currentPage - 1}, sort=${sort}, dir=${dir})}" th:text="#{button.back}">Previous</a>
+                </li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+                    <a class="page-link" th:href="@{/dashboard(page=${i}, sort=${sort}, dir=${dir})}" th:text="${i + 1}"></a>
+                </li>
+                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/dashboard(page=${currentPage + 1}, sort=${sort}, dir=${dir})}" th:text="#{dashboard.actions}">Next</a>
+                </li>
+            </ul>
+        </nav>
+
     </div>
 
 </div>

@@ -18,7 +18,7 @@ import java.util.Optional;
 public class BisnodeExcelService {
 
     private final BisnodeRepository repository;
-private final ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
     public BisnodeExcelService(BisnodeRepository repository, ClientRepository clientRepository) {
         this.repository = repository;
         this.clientRepository = clientRepository;
@@ -80,7 +80,7 @@ private final ClientRepository clientRepository;
 //                    System.out.println("Skipped row " + row.getRowNum() + " — empty client name");
 //                    continue;
 //                }
-////String clientName, Client client, Integer dax, String rating, LocalDateTime fetchedAt)
+    ////String clientName, Client client, Integer dax, String rating, LocalDateTime fetchedAt)
 //                repository.save(new Bisnode(
 //                        clientName,
 //                        externalId,
@@ -90,49 +90,49 @@ private final ClientRepository clientRepository;
 //            }
 //        }
 //    }
-public void importBisnodeFile(File file) throws IOException {
+    public void importBisnodeFile(File file) throws IOException {
 
-    try (Workbook workbook = WorkbookFactory.create(file)) {
-        Sheet sheet = workbook.getSheetAt(0);
+        try (Workbook workbook = WorkbookFactory.create(file)) {
+            Sheet sheet = workbook.getSheetAt(0);
 
-        for (Row row : sheet) {
-            if (row.getRowNum() == 0) continue;
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) continue;
 
-            String externalId = getString(row, 0);   // 🔥 ID
-            String clientName = getString(row, 1);   // 🔥 NAME
-            Integer dax = getInteger(row, 2);
-            String rating = getString(row, 3);
+                String externalId = getString(row, 0);   // 🔥 ID
+                String clientName = getString(row, 1);   // 🔥 NAME
+                Integer dax = getInteger(row, 2);
+                String rating = getString(row, 3);
 
-            if (externalId == null || externalId.isBlank()) {
-                System.out.println("⛔ Row " + row.getRowNum() + " skipped — externalId empty");
-                continue;
+                if (externalId == null || externalId.isBlank()) {
+                    System.out.println("⛔ Row " + row.getRowNum() + " skipped — externalId empty");
+                    continue;
+                }
+
+                Client client = clientRepository
+                        .findByExternalId(externalId)
+                        .orElseGet(() -> {
+                            Client c = new Client();
+                            c.setExternalId(externalId);
+                            c.setFullName(clientName);
+                            c.setStatus(ClientStatus.ACTIVE);
+                            c.setCreatedAt(LocalDate.now());
+                            return clientRepository.save(c);
+                        });
+
+                Bisnode bisnode = new Bisnode(
+                        client.getName(),
+                        null,
+                        dax,
+                        rating
+                );
+
+                bisnode.setClient(client);
+                bisnode.setFetchedAt(LocalDateTime.now());
+
+                repository.save(bisnode);
             }
-
-            Client client = clientRepository
-                    .findByExternalId(externalId)
-                    .orElseGet(() -> {
-                        Client c = new Client();
-                        c.setExternalId(externalId);
-                        c.setFullName(clientName);
-                        c.setStatus(ClientStatus.ACTIVE);
-                        c.setCreatedAt(LocalDate.now());
-                        return clientRepository.save(c);
-                    });
-
-            Bisnode bisnode = new Bisnode(
-                    client.getName(),
-                    null,
-                    dax,
-                    rating
-            );
-
-            bisnode.setClient(client);
-            bisnode.setFetchedAt(LocalDateTime.now());
-
-            repository.save(bisnode);
         }
     }
-}
 
 
 }

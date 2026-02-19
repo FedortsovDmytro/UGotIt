@@ -1,4 +1,4 @@
-package com.example.demo.uploading;
+package com.example.demo.uploading.archive;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
