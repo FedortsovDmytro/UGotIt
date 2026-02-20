@@ -57,7 +57,7 @@
 //        return description;
 //    }
 //}
-package com.example.demo.risk;
+package com.example.demo.base.risk;
 
 import java.util.Locale;
 
@@ -106,6 +106,7 @@ public enum RiskSignal {
     /**
      * Returns the description based on the current locale.
      */
+
     public String getDescription(Locale locale) {
         if (locale != null && locale.getLanguage().equals(new Locale("pl").getLanguage())) {
             return descriptionPl;

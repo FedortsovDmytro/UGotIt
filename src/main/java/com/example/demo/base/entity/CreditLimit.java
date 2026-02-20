@@ -1,4 +1,4 @@
-package com.example.demo.base.entity;
+package com.example.demo.base.base.entity;
 
 import jakarta.persistence.*;
 
@@ -27,7 +27,7 @@ public class CreditLimit {
     private LocalDate validFrom;
     private LocalDate validTo;
 
-    protected CreditLimit() {}
+    public CreditLimit() {}
 
     private CreditLimit(Builder b) {
         this.client = b.client;
@@ -36,6 +36,18 @@ public class CreditLimit {
         this.paymentTermsDays = b.paymentTermsDays;
         this.validFrom = b.validFrom;
         this.validTo = b.validTo;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setLimitAmount(BigDecimal bigDecimal) {
+        this.limitAmount = bigDecimal;
+    }
+
+    public void setValidFrom(LocalDate from) {
+        this.validFrom = from;
     }
 
 

@@ -1,8 +1,8 @@
-package com.example.demo.risk;
+package com.example.demo.base.risk;
 
-import com.example.demo.base.entity.Client;
-import com.example.demo.base.entity.RiskAssessment;
-import com.example.demo.base.entity.RiskSignalEntity;
+import com.example.demo.base.base.entity.Client;
+import com.example.demo.base.base.entity.RiskAssessment;
+import com.example.demo.base.base.entity.RiskSignalEntity;
 
 import java.time.LocalDateTime;
 import java.util.Set;

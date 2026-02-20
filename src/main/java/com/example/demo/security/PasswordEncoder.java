@@ -1,4 +1,4 @@
-package com.example.demo.security;
+package com.example.demo.base.security;
 
 public class PasswordEncoder {
 }

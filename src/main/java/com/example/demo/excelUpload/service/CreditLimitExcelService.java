@@ -1,10 +1,10 @@
-package com.example.demo.excelUpload.service;
+package com.example.demo.base.excelUpload.service;
 
-import com.example.demo.base.entity.Client;
-import com.example.demo.base.entity.ClientStatus;
-import com.example.demo.base.entity.CreditLimit;
-import com.example.demo.excelUpload.repository.CreditLimitRepository;
-import com.example.demo.base.repository.ClientRepository;
+import com.example.demo.base.base.entity.Client;
+import com.example.demo.base.base.entity.ClientStatus;
+import com.example.demo.base.base.entity.CreditLimit;
+import com.example.demo.base.excelUpload.repository.CreditLimitRepository;
+import com.example.demo.base.base.repository.ClientRepository;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 

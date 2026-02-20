@@ -1,5 +1,9 @@
-package com.example.demo.risk;
+package com.example.demo.base.risk;
 
+import com.example.demo.base.base.entity.Bisnode;
+import com.example.demo.base.base.entity.Client;
+import com.example.demo.base.base.entity.CreditLimit;
+import com.example.demo.base.base.entity.ReceivableAging;
 import com.example.demo.base.entity.*;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;

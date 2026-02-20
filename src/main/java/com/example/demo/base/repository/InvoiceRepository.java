@@ -1,8 +1,8 @@
-package com.example.demo.base.repository;
+package com.example.demo.base.base.repository;
 
-import com.example.demo.base.entity.Client;
-import com.example.demo.base.entity.Invoice;
-import com.example.demo.base.entity.InvoiceStatus;
+import com.example.demo.base.base.entity.Client;
+import com.example.demo.base.base.entity.Invoice;
+import com.example.demo.base.base.entity.InvoiceStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

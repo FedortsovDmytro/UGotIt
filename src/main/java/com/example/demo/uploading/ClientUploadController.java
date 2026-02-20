@@ -1,13 +1,10 @@
-package com.example.demo.uploading;
+package com.example.demo.base.uploading;
 
-import com.example.demo.uploading.dto.ReceivableRecord;
-import com.example.demo.uploading.dto.ReceivableAgingBuilder;
-import com.example.demo.risk.AgingResult;
-import com.example.demo.uploading.service.ClientAlreadyExistsException;
-import com.example.demo.uploading.service.ClientExcelUploadService;
+import com.example.demo.base.base.dto.UploadResult;
+import com.example.demo.base.uploading.service.ClientAlreadyExistsException;
+import com.example.demo.base.uploading.service.ClientExcelUploadService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.apache.poi.ss.usermodel.*;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,48 +27,94 @@ public class ClientUploadController {
         return "clients/upload";
     }
 
-    @PostMapping("/upload")
-    public String uploadClients(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("clientId") String clientId,
-            @RequestParam("clientName") String clientName,
-            @RequestParam(value = "replace", defaultValue = "false") boolean replaceConfirmed,
-            Model model,
-            HttpSession session) {
+//    @PostMapping("/upload")
+//    public String uploadClients(
+//            @RequestParam("file") MultipartFile file,
+//            @RequestParam("clientId") String clientId,
+//            @RequestParam("clientName") String clientName,
+//            @RequestParam(value = "replace", defaultValue = "false") boolean replaceConfirmed,
+//            Model model,
+//            HttpSession session) {
+//
+//        try {
+//            session.setAttribute("pendingFile", file.getBytes());
+//
+//            uploadService.upload(
+//                    new ByteArrayInputStream(file.getBytes()),
+//                    clientId,
+//                    clientName,
+//                    replaceConfirmed
+//            );
+//
+//            session.removeAttribute("pendingFile");
+//
+//            model.addAttribute("success", "Client uploaded successfully!");
+//            System.out.println("=== UPLOAD DEBUG START ===");
+//            System.out.println("Client ID: " + clientId);
+//            System.out.println("Client Name: " + clientName);
+//            System.out.println("Replace confirmed: " + replaceConfirmed);
+//            System.out.println("File name: " + file.getOriginalFilename());
+//            System.out.println("File size: " + file.getSize());
+//            System.out.println("=== UPLOAD DEBUG END ===");
+//            return "redirect:/dashboard";
+//
+//        } catch (ClientAlreadyExistsException ex) {
+//            model.addAttribute("clientId", clientId);
+//            model.addAttribute("clientName", clientName);
+//
+//            return "clients/confirm-replace";
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            model.addAttribute("error", "Upload failed: " + ex.getMessage());
+//            return "clients/upload";
+//        }
+//    }
+@PostMapping("/upload")
+public String uploadClients(
+        @RequestParam("file") MultipartFile file,
+        @RequestParam("clientId") String clientId,
+        @RequestParam("clientName") String clientName,
+        @RequestParam(value = "replace", defaultValue = "false") boolean replaceConfirmed,
+        Model model,
+        HttpSession session,
+        HttpServletRequest request) {
 
-        try {
-            session.setAttribute("pendingFile", file.getBytes());
+    try {
+        session.setAttribute("pendingFile", file.getBytes());
 
-            uploadService.upload(
-                    new ByteArrayInputStream(file.getBytes()),
-                    clientId,
-                    clientName,
-                    replaceConfirmed
-            );
 
-            session.removeAttribute("pendingFile");
+        UploadResult result = uploadService.uploadAndReturnResult(
+                new ByteArrayInputStream(file.getBytes()),
+                clientId,
+                clientName,
+                replaceConfirmed,
+                request.getLocale()
+        );
 
-            model.addAttribute("success", "Client uploaded successfully!");
-            return "redirect:/dashboard";
+        session.removeAttribute("pendingFile");
 
-        } catch (ClientAlreadyExistsException ex) {
-            model.addAttribute("clientId", clientId);
-            model.addAttribute("clientName", clientName);
+        model.addAttribute("result", result);
+        model.addAttribute("success", "Client uploaded successfully!");
+        return "clients/upload";
 
-            return "clients/confirm-replace";
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            model.addAttribute("error", "Upload failed: " + ex.getMessage());
-            return "clients/upload";
-        }
+    } catch (ClientAlreadyExistsException ex) {
+        model.addAttribute("clientId", clientId);
+        model.addAttribute("clientName", clientName);
+        return "clients/confirm-replace";
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        model.addAttribute("error", "Upload failed: " + ex.getMessage());
+        return "clients/upload";
     }
+}
 
-    @PostMapping("/upload/replace")
+ @PostMapping ("/upload/replace")
     public String replaceClient(
             @RequestParam("clientId") String clientId,
             @RequestParam("clientName") String clientName,
             HttpSession session,
-            Model model) {
+            Model model,
+            HttpServletRequest request) {
 
         byte[] fileBytes = (byte[]) session.getAttribute("pendingFile");
 
@@ -81,17 +124,18 @@ public class ClientUploadController {
         }
 
         try {
-            uploadService.upload(
+            UploadResult result = uploadService.uploadAndReturnResult(
                     new ByteArrayInputStream(fileBytes),
                     clientId,
                     clientName,
-                    true
+                    true,
+                    request.getLocale()
             );
 
             session.removeAttribute("pendingFile");
-
+            model.addAttribute("result", result);
             model.addAttribute("success", "Client replaced successfully!");
-            return "redirect:/dashboard";
+            return "clients/upload";
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -102,4 +146,3 @@ public class ClientUploadController {
         }
     }
 }
-

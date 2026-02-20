@@ -1,4 +1,4 @@
-package com.example.demo.homepage;
+package com.example.demo.base.homepage;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;

@@ -1,7 +1,6 @@
-package com.example.demo.base.repository;
+package com.example.demo.base.base.repository;
 
-import com.example.demo.base.dto.ClientDashboardRow;
-import com.example.demo.base.entity.Client;
+import com.example.demo.base.base.entity.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

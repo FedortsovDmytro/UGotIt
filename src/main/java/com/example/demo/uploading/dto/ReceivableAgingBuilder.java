@@ -1,6 +1,6 @@
-package com.example.demo.uploading.dto;
+package com.example.demo.base.uploading.dto;
 
-import com.example.demo.risk.AgingResult;
+import com.example.demo.base.risk.AgingResult;
 
 import java.math.BigDecimal;
 import java.util.List;

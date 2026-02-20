@@ -1,4 +1,4 @@
-package com.example.demo.risk;
+package com.example.demo.base.risk;
 
 
 import java.math.BigDecimal;

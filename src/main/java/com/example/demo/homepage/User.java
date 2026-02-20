@@ -1,8 +1,7 @@
-package com.example.demo.homepage;
+package com.example.demo.base.homepage;
 
 
 import jakarta.persistence.*;
-import java.util.*;
 
 @Entity
 @Table(name = "users")

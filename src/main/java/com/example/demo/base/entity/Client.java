@@ -1,13 +1,10 @@
-package com.example.demo.base.entity;
+package com.example.demo.base.base.entity;
 
 import jakarta.persistence.*;
-import org.apache.commons.lang3.builder.ToStringSummary;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -75,6 +72,7 @@ public class Client {
     public void setClientId(String clientId) {
         this.externalId = clientId;
     }
+
 
     public static class Builder {
 

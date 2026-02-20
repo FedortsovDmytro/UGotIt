@@ -1,7 +1,7 @@
-package com.example.demo.base.dto;
+package com.example.demo.base.base.dto;
 
 
-import com.example.demo.base.entity.InvoiceStatus;
+import com.example.demo.base.base.entity.InvoiceStatus;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 

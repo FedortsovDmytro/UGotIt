@@ -1,6 +1,6 @@
-package com.example.demo.uploading.dto;
+package com.example.demo.base.uploading.dto;
 
-import com.example.demo.base.entity.Client;
+import com.example.demo.base.base.entity.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

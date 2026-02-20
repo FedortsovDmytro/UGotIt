@@ -1,4 +1,4 @@
-package com.example.demo.excelUpload.dto;
+package com.example.demo.base.excelUpload.dto;
 
 public record BisnodeRow(
         String clientName,

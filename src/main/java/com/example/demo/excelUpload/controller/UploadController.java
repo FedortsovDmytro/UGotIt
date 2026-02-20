@@ -1,11 +1,9 @@
-package com.example.demo.excelUpload.controller;
+package com.example.demo.base.excelUpload.controller;
 
-import com.example.demo.base.service.BisnodeService;
-import com.example.demo.base.service.ClientService;
-import com.example.demo.excelUpload.service.BisnodeExcelService;
-import com.example.demo.excelUpload.service.CreditLimitExcelService;
-import com.example.demo.excelUpload.service.ReceivableAgingExcelService;
-import com.example.demo.uploading.service.ClientExcelUploadService;
+import com.example.demo.base.base.service.ClientService;
+import com.example.demo.base.excelUpload.service.BisnodeExcelService;
+import com.example.demo.base.excelUpload.service.CreditLimitExcelService;
+import com.example.demo.base.excelUpload.service.ReceivableAgingExcelService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,57 +38,125 @@ public class UploadController {
         return "upload-file";
     }
 
-    @PostMapping("/upload-file")
-    public String handleUpload(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("fileType") String fileType,
-            @RequestParam(value = "reportDate", required = false) String reportDate,
-            RedirectAttributes redirectAttributes
-    ) {
+//    @PostMapping("/upload-file")
+//    public String handleUpload(
+//            @RequestParam("file") MultipartFile file,
+//            @RequestParam("fileType") String fileType,
+//            @RequestParam(value = "reportDate", required = false) String reportDate,
+//            RedirectAttributes redirectAttributes
+//    ) {
+//
+//        try {
+//
+//            switch (fileType) {
+//
+//                case "bisnode" -> {
+//                    File tempFile = File.createTempFile("bisnode", ".xlsx");
+//                    file.transferTo(tempFile);
+//                    bisnodeService.importBisnodeFile(tempFile);
+//                }
+//
+//                case "receivable-aging" -> {
+//
+//                    if (reportDate == null || reportDate.isBlank()) {
+//                        throw new IllegalArgumentException("Report date is required");
+//                    }
+//
+//                    File tmp = File.createTempFile("aging", ".xlsx");
+//                    file.transferTo(tmp);
+//
+//                    receivableService.importFile(tmp, LocalDate.parse(reportDate));
+//                }
+//
+//
+//                case "credit-limits" -> {
+//                    File tempFile = File.createTempFile("limits-", ".xlsx");
+//                    file.transferTo(tempFile);
+//                    creditLimitService.importFile(tempFile);
+//                }
+//
+//                case "bisnode-agg" -> {
+//
+//                    clientService.importFromExcel(file);
+//                }
+//
+//                default -> throw new IllegalArgumentException("Unknown file type");
+//            }
+//
+//            redirectAttributes.addFlashAttribute("message", "Import successful!");
+//
+//        } catch (Exception e) {
+//            redirectAttributes.addFlashAttribute("message", "Error: " + e.getMessage());
+//        }
+//
+//        return "redirect:/upload-file";
+//    }
+@PostMapping("/upload-file")
+public String handleUpload(
+        @RequestParam("file") MultipartFile file,
+        @RequestParam("fileType") String fileType,
+        @RequestParam(value = "reportDate", required = false) String reportDate,
+        RedirectAttributes redirectAttributes
+) {
 
-        try {
+    System.out.println("=== UPLOAD START ===");
+    System.out.println("File name: " + file.getOriginalFilename());
+    System.out.println("File type: " + fileType);
+    System.out.println("Report date: " + reportDate);
 
-            switch (fileType) {
+    try {
 
-                case "bisnode" -> {
-                    File tempFile = File.createTempFile("bisnode", ".xlsx");
-                    file.transferTo(tempFile);
-                    bisnodeService.importBisnodeFile(tempFile);
-                }
+        switch (fileType) {
 
-                case "receivable-aging" -> {
-
-                    if (reportDate == null || reportDate.isBlank()) {
-                        throw new IllegalArgumentException("Report date is required");
-                    }
-
-                    File tmp = File.createTempFile("aging", ".xlsx");
-                    file.transferTo(tmp);
-
-                    receivableService.importFile(tmp, LocalDate.parse(reportDate));
-                }
-
-
-                case "credit-limits" -> {
-                    File tempFile = File.createTempFile("limits-", ".xlsx");
-                    file.transferTo(tempFile);
-                    creditLimitService.importFile(tempFile);
-                }
-
-                case "bisnode-agg" -> {
-
-                    clientService.importFromExcel(file);
-                }
-
-                default -> throw new IllegalArgumentException("Unknown file type");
+            case "bisnode" -> {
+                System.out.println("Processing BISNODE...");
+                File tempFile = File.createTempFile("bisnode", ".xlsx");
+                file.transferTo(tempFile);
+                bisnodeService.importBisnodeFile(tempFile);
             }
 
-            redirectAttributes.addFlashAttribute("message", "Import successful!");
+            case "receivable-aging" -> {
+                System.out.println("Processing RECEIVABLE AGING...");
 
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("message", "Error: " + e.getMessage());
+                if (reportDate == null || reportDate.isBlank()) {
+                    throw new IllegalArgumentException("Report date is required");
+                }
+
+                File tmp = File.createTempFile("aging", ".xlsx");
+                file.transferTo(tmp);
+
+                receivableService.importFile(tmp, LocalDate.parse(reportDate));
+            }
+
+            case "credit-limits" -> {
+                System.out.println("Processing CREDIT LIMITS...");
+                File tempFile = File.createTempFile("limits-", ".xlsx");
+                file.transferTo(tempFile);
+                creditLimitService.importFile(tempFile);
+            }
+
+            case "bisnode-agg" -> {
+                System.out.println("Processing BISNODE AGG...");
+                clientService.importFromExcel(file);
+            }
+
+            default -> {
+                System.out.println("UNKNOWN FILE TYPE!");
+                throw new IllegalArgumentException("Unknown file type");
+            }
         }
 
-        return "redirect:/upload-file";
+        System.out.println("=== IMPORT SUCCESS ===");
+        redirectAttributes.addFlashAttribute("message", "Import successful!");
+
+    } catch (Exception e) {
+
+        System.out.println("=== IMPORT ERROR ===");
+        e.printStackTrace();
+
+        redirectAttributes.addFlashAttribute("message", "Error: " + e.getMessage());
     }
+
+    return "redirect:/upload-file";
+}
 }

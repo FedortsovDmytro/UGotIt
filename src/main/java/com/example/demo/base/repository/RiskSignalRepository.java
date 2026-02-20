@@ -1,8 +1,8 @@
-package com.example.demo.base.repository;
+package com.example.demo.base.base.repository;
 
 
-import com.example.demo.base.entity.RiskSignalEntity;
-import com.example.demo.risk.RiskSignal;
+import com.example.demo.base.base.entity.RiskSignalEntity;
+import com.example.demo.base.risk.RiskSignal;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

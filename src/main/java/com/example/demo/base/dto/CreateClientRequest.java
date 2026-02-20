@@ -1,5 +1,5 @@
-package com.example.demo.base.dto;
-import com.example.demo.base.entity.ClientStatus;
+package com.example.demo.base.base.dto;
+import com.example.demo.base.base.entity.ClientStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

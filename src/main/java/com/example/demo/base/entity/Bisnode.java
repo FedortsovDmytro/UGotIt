@@ -1,4 +1,4 @@
-package com.example.demo.base.entity;
+package com.example.demo.base.base.entity;
 
 import jakarta.persistence.*;
 
@@ -23,7 +23,7 @@ public class Bisnode {
 
     @Column(name = "rating")
     private String rating;
-    protected Bisnode() {
+    public Bisnode() {
     }
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "client_id",nullable=false)

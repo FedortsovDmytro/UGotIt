@@ -1,12 +1,12 @@
-package com.example.demo.base.service;
+package com.example.demo.base.base.service;
 
-import com.example.demo.base.dto.ClientDashboardRow;
-import com.example.demo.base.entity.Client;
-import com.example.demo.base.entity.ClientStatus;
-import com.example.demo.base.entity.RiskAssessment;
-import com.example.demo.base.repository.ClientDashboardRepository;
-import com.example.demo.base.repository.ClientRepository;
-import com.example.demo.risk.RiskLevel;
+import com.example.demo.base.base.dto.ClientDashboardRow;
+import com.example.demo.base.base.entity.Client;
+import com.example.demo.base.base.entity.ClientStatus;
+import com.example.demo.base.base.entity.RiskAssessment;
+import com.example.demo.base.base.repository.ClientDashboardRepository;
+import com.example.demo.base.base.repository.ClientRepository;
+import com.example.demo.base.risk.RiskLevel;
 import com.opencsv.CSVReader;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.data.domain.Page;
@@ -21,14 +21,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.demo.base.entity.ClientStatus.ACTIVE;
+import static com.example.demo.base.base.entity.ClientStatus.ACTIVE;
 
 @Service
 public class ClientService {
     private final ClientRepository clientRepository;
     private final ClientDashboardRepository dashboardRepository;
 
-    ClientService(ClientRepository clientRepository, ClientDashboardRepository clientDashBoardRepository) {
+    public ClientService(ClientRepository clientRepository, ClientDashboardRepository clientDashBoardRepository) {
         this.clientRepository = clientRepository;
         this.dashboardRepository = clientDashBoardRepository;
     }

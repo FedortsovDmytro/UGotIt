@@ -82,15 +82,16 @@
 //
 //}
 //
-package com.example.demo.base.controller;
+package com.example.demo.base.base.controller;
 
+import com.example.demo.base.base.entity.*;
 import com.example.demo.base.entity.*;
-import com.example.demo.base.service.ClientService;
-import com.example.demo.base.service.CreditLimitService;
-import com.example.demo.base.service.ReceivableAgingService;
-import com.example.demo.base.service.RiskAssessmentService;
-import com.example.demo.risk.RiskScoringEngine;
-import com.example.demo.risk.RiskSignal;
+import com.example.demo.base.base.service.ClientService;
+import com.example.demo.base.base.service.CreditLimitService;
+import com.example.demo.base.base.service.ReceivableAgingService;
+import com.example.demo.base.base.service.RiskAssessmentService;
+import com.example.demo.base.risk.RiskScoringEngine;
+import com.example.demo.base.risk.RiskSignal;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -99,7 +100,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/clients/{externalId}/risk-assessments")
@@ -149,33 +149,37 @@ public class RiskAssessmentController {
         Optional<CreditLimit> creditLimit = creditLimitService.findByExternalId(client.getExternalId());
         ReceivableAging aging = agingService.findByExternalId(client.getExternalId());
 
-        // Current locale for i18n
         Locale currentLocale = LocaleContextHolder.getLocale();
 
-        if (assessment != null && assessment.getSignals() != null) {
-            // Convert Set<RiskSignalEntity> -> List<RiskSignal
-            Set<RiskSignalEntity> entitySignals = assessment.getSignals();
-            List<RiskSignal> signals = assessment.getSignals().stream()
-                    .map(RiskSignalEntity::getSignal)
-                    .toList();
+        if (assessment != null) {
 
-            String localizedReasons = riskScoringEngine.assess(signals, currentLocale).getReasons();
-            String localizedRecommendation = riskScoringEngine.assess(signals, currentLocale).getRecommendation();
+            if (assessment.getSignals() != null && !assessment.getSignals().isEmpty()) {
 
-            model.addAttribute("localizedReasons", localizedReasons);
-            model.addAttribute("localizedRecommendation", localizedRecommendation);
+                List<RiskSignal> signals = assessment.getSignals().stream()
+                        .map(RiskSignalEntity::getSignal)
+                        .toList();
 
+                var result = riskScoringEngine.assess(signals, currentLocale);
 
-            model.addAttribute("localizedReasons", localizedReasons);
-            model.addAttribute("localizedRecommendation", localizedRecommendation);
+                model.addAttribute("localizedReasons", result.getReasons());
+                model.addAttribute("localizedRecommendation", result.getRecommendation());
+
+            } else {
+
+                model.addAttribute("localizedReasons", assessment.getReasons());
+                model.addAttribute("localizedRecommendation", assessment.getRecommendation());
+            }
         }
 
+        System.out.println(client.getId() + " " + externalId);
+        System.out.println(assessment);
+        System.out.println(creditLimit);
+        System.out.println(aging);
         model.addAttribute("client", client);
         model.addAttribute("risk", assessment);
         model.addAttribute("creditLimit", creditLimit);
         model.addAttribute("aging", aging);
 
-        // Debug logs
         System.out.println("CreditLimit object: " + creditLimit);
         System.out.println("Aging object: " + aging);
         creditLimit.ifPresent(limit -> {

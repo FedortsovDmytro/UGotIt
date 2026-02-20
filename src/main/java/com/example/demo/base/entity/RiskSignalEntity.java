@@ -1,6 +1,6 @@
-package com.example.demo.base.entity;
+package com.example.demo.base.base.entity;
 
-import com.example.demo.risk.RiskSignal;
+import com.example.demo.base.risk.RiskSignal;
 import jakarta.persistence.*;
 @Entity
 @Table(name = "risk_signal")

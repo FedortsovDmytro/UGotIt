@@ -1,7 +1,7 @@
-package com.example.demo.excelUpload.repository;
+package com.example.demo.base.excelUpload.repository;
 
-import com.example.demo.base.entity.Client;
-import com.example.demo.base.entity.ReceivableAging;
+import com.example.demo.base.base.entity.Client;
+import com.example.demo.base.base.entity.ReceivableAging;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +16,6 @@ public interface ReceivableAgingRepository
     boolean existsCurrentByClient(Client client);
 
     ReceivableAging findByClientExternalId(String externalId);
+
+    void deleteByClient(Client client);
 }

@@ -1,7 +1,7 @@
-package com.example.demo.excelUpload.repository;
+package com.example.demo.base.excelUpload.repository;
 
-import com.example.demo.base.entity.Bisnode;
-import com.example.demo.base.entity.Client;
+import com.example.demo.base.base.entity.Bisnode;
+import com.example.demo.base.base.entity.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
