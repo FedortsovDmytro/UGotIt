@@ -1,0 +1,119 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Upload Excel</title>-->
+<!--    <meta charset="UTF-8">-->
+
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Upload Excel Files</h1>-->
+
+<!--<form method="post" th:action="@{/upload-file}" enctype="multipart/form-data">-->
+
+<!--    <label>Select File Type:</label>-->
+<!--    <select name="fileType" required>-->
+<!--        <option value="bisnode">Bisnode Extended</option>-->
+<!--        <option value="bisnode-agg">Bisnode Aggregated</option>-->
+<!--        <option value="receivable-aging">Raport pod Hermesa</option>-->
+<!--        <option value="credit-limits">Stan (Credit Limits)</option>-->
+<!--    </select>-->
+
+
+<!--    <br/><br/>-->
+
+<!--    <label>Select Excel File:</label>-->
+<!--    <input type="file" name="file" accept=".xlsx" required/>-->
+<!--    <br/><br/>-->
+
+<!--    <button type="submit">Upload</button>-->
+<!--</form>-->
+
+
+<!--<script>-->
+<!--    // Show report date only for receivable-aging-->
+<!--    const fileTypeSelect = document.querySelector('select[name="fileType"]');-->
+<!--    const reportDateDiv = document.getElementById('reportDateDiv');-->
+
+<!--    function toggleDate() {-->
+<!--        if (fileTypeSelect.value === 'receivable-aging') {-->
+<!--            reportDateDiv.style.display = 'block';-->
+<!--        } else {-->
+<!--            reportDateDiv.style.display = 'none';-->
+<!--        }-->
+<!--    }-->
+
+<!--    toggleDate();-->
+<!--    fileTypeSelect.addEventListener('change', toggleDate);-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Excel</title>
+</head>
+<body>
+
+<h2>Import Excel</h2>
+
+<form id="uploadForm" method="post" enctype="multipart/form-data">
+
+    <label>Typ pliku:</label>
+    <select id="fileType" name="fileType" onchange="updateAction()">
+        <option value="bisnode">Bisnode</option>
+        <option value="receivable-aging">Receivable Aging</option>
+        <option value="credit-limits">Credit Limits</option>
+        <option value="clients">Clients (bisnode-agg)</option>
+    </select>
+
+    <br><br>
+
+    <div id="reportDateDiv" style="display:none;">
+        <label>Report Date:</label>
+        <input type="date" name="reportDate" />
+        <br><br>
+    </div>
+
+    <input type="file" name="file" required />
+    <br><br>
+
+    <button type="submit">Upload</button>
+
+</form>
+
+<script>
+    function updateAction() {
+
+        const type = document.getElementById("fileType").value;
+        const form = document.getElementById("uploadForm");
+        const reportDateDiv = document.getElementById("reportDateDiv");
+
+        reportDateDiv.style.display = "none";
+
+        switch (type) {
+
+            case "bisnode":
+                form.action = "/import/bisnode";
+                break;
+
+            case "receivable-aging":
+                form.action = "/import/receivable-aging";
+                reportDateDiv.style.display = "block";
+                break;
+
+            case "credit-limits":
+                form.action = "/credit-limits/import";
+                break;
+
+            case "clients":
+                form.action = "/clients/import";
+                break;
+        }
+    }
+
+    updateAction();
+</script>
+
+</body>
+</html>
