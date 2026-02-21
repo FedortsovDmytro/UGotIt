@@ -31,6 +31,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: root
       SERVER_PORT: 8080
       SERVER_ADDRESS: 0.0.0.0
-
+      AI_GATEWAY_URL: https://ai-gateway.ugotit.pl
+      AI_GATEWAY_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZlZG9ydHNvdmRteXRyb0BnbWFpbC5jb20iLCJpYXQiOjE3NzAzODc2MjMsImV4cCI6MTc3MzE1MjQyM30.Bf-fgK1_DR9GcOHEoZ_J-9v5EK4Fg2bZP7yO35sdthY
 volumes:
   mysql-data:
