@@ -1,10 +1,10 @@
-package com.example.demo.base.service;
+package com.example.demo.service;
 
 
-import com.example.demo.base.base.entity.Bisnode;
-import com.example.demo.base.base.entity.Client;
-import com.example.demo.base.base.service.BisnodeService;
-import com.example.demo.base.excelUpload.repository.BisnodeRepository;
+import com.example.demo.base.entity.Bisnode;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.service.BisnodeService;
+import com.example.demo.excelUpload.repository.BisnodeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

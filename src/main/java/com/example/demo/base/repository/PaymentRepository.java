@@ -1,7 +1,7 @@
-package com.example.demo.base.base.repository;
+package com.example.demo.base.repository;
 
-import com.example.demo.base.base.entity.Invoice;
-import com.example.demo.base.base.entity.Payment;
+import com.example.demo.base.entity.Invoice;
+import com.example.demo.base.entity.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

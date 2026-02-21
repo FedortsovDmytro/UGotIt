@@ -1,4 +1,4 @@
-package com.example.demo.base.base.entity;
+package com.example.demo.base.entity;
 
 public enum InvoiceStatus {
     DRAFT,

@@ -1,10 +1,11 @@
-package com.example.demo.base.excelUpload.repository;
+package com.example.demo.excelUpload.repository;
 
-import com.example.demo.base.base.entity.Client;
-import com.example.demo.base.base.entity.ReceivableAging;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ReceivableAging;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,4 +19,6 @@ public interface ReceivableAgingRepository
     ReceivableAging findByClientExternalId(String externalId);
 
     void deleteByClient(Client client);
+
+    List<ReceivableAging> findAllByClient(Client client);
 }

@@ -1,10 +1,10 @@
-package com.example.demo.base.base.service;
+package com.example.demo.base.service;
 
-import com.example.demo.base.base.entity.Invoice;
-import com.example.demo.base.base.entity.InvoiceStatus;
-import com.example.demo.base.base.entity.Client;
-import com.example.demo.base.base.repository.ClientRepository;
-import com.example.demo.base.base.repository.InvoiceRepository;
+import com.example.demo.base.entity.Invoice;
+import com.example.demo.base.entity.InvoiceStatus;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.repository.ClientRepository;
+import com.example.demo.base.repository.InvoiceRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

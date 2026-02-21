@@ -57,7 +57,7 @@
 //        return description;
 //    }
 //}
-package com.example.demo.base.risk;
+package com.example.demo.risk;
 
 import java.util.Locale;
 

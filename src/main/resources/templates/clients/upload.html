@@ -1,13 +1,116 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Upload klienta</title>-->
+<!--    <meta charset="UTF-8">-->
+
+<!--    &lt;!&ndash; Bootstrap &ndash;&gt;-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+
+<!--<body class="bg-light">-->
+
+<!--<div class="container py-5">-->
+
+<!--    <div class="row justify-content-center">-->
+<!--        <div class="col-lg-7 col-md-9">-->
+
+<!--            <div class="card shadow-sm">-->
+<!--                <div class="card-body p-4">-->
+
+<!--                    <h2 class="text-center mb-4">Import klienta z pliku Excel</h2>-->
+
+<!--                    <form method="post"-->
+<!--                          enctype="multipart/form-data"-->
+<!--                          th:action="@{/clients/upload}">-->
+
+<!--                        <div class="mb-3">-->
+<!--                            <label class="form-label fw-semibold">Client ID</label>-->
+<!--                            <input type="text" name="clientId" class="form-control" required />-->
+<!--                        </div>-->
+
+<!--                        <div class="mb-3">-->
+<!--                            <label class="form-label fw-semibold">Client Name</label>-->
+<!--                            <input type="text" name="clientName" class="form-control" required />-->
+<!--                        </div>-->
+
+<!--                        <div class="mb-4">-->
+<!--                            <label class="form-label fw-semibold">Excel File</label>-->
+<!--                            <input type="file" name="file" accept=".xlsx" class="form-control" required />-->
+<!--                        </div>-->
+
+<!--                        <div class="d-grid">-->
+<!--                            <button type="submit" class="btn btn-primary">-->
+<!--                                Załaduj plik-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+
+<!--                    &lt;!&ndash; SUCCESS MESSAGE &ndash;&gt;-->
+<!--                    <div th:if="${success}" class="alert alert-success mt-4">-->
+<!--                        <p class="mb-0" th:text="${success}"></p>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; ERROR MESSAGE &ndash;&gt;-->
+<!--                    <div th:if="${error}" class="alert alert-danger mt-4">-->
+<!--                        <p class="mb-0" th:text="${error}"></p>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; RESULTS CARD &ndash;&gt;-->
+<!--            <div th:if="${agingResult}" class="card shadow-sm mt-4">-->
+<!--                <div class="card-body">-->
+
+<!--                    <h4 class="mb-3">-->
+<!--                        Wyniki obliczeń ryzyka dla klienta:-->
+<!--                        <span class="text-primary" th:text="${clientName}"></span>-->
+<!--                    </h4>-->
+
+<!--                    <div class="table-responsive">-->
+<!--                        <table class="table table-bordered table-striped align-middle">-->
+<!--                            <thead class="table-light">-->
+<!--                            <tr>-->
+<!--                                <th>Total Receivables</th>-->
+<!--                                <th>Average Days Past Due</th>-->
+<!--                                <th>Risk Score</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr>-->
+<!--                                <td th:text="${agingResult.totalReceivables}">0</td>-->
+<!--                                <td th:text="${agingResult.averageDaysPastDue}">0</td>-->
+<!--                                <td th:text="${agingResult.riskScore}">0</td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; BACK BUTTON &ndash;&gt;-->
+<!--            <div class="text-center mt-4">-->
+<!--                <a th:href="@{/dashboard}" class="btn btn-outline-secondary">-->
+<!--                    ← Powrót do listy klientów-->
+<!--                </a>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Upload klienta</title>
     <meta charset="UTF-8">
-
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body class="bg-light">
 
 <div class="container py-5">
@@ -60,31 +163,53 @@
             </div>
 
             <!-- RESULTS CARD -->
-            <div th:if="${agingResult}" class="card shadow-sm mt-4">
+            <div th:if="${result}" class="card shadow-sm mt-4">
                 <div class="card-body">
 
                     <h4 class="mb-3">
                         Wyniki obliczeń ryzyka dla klienta:
-                        <span class="text-primary" th:text="${clientName}"></span>
+                        <span class="text-primary" th:text="${result.clientName}"></span>
                     </h4>
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped align-middle">
-                            <thead class="table-light">
-                            <tr>
-                                <th>Total Receivables</th>
-                                <th>Average Days Past Due</th>
-                                <th>Risk Score</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td th:text="${agingResult.totalReceivables}">0</td>
-                                <td th:text="${agingResult.averageDaysPastDue}">0</td>
-                                <td th:text="${agingResult.riskScore}">0</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="mb-3">
+                        <strong>ID klienta:</strong> <span th:text="${result.clientId}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Poziom ryzyka:</strong> <span th:text="${result.riskLevel}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Wynik:</strong> <span th:text="${result.riskScore}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Powody:</strong>
+                        <span th:text="${#strings.isEmpty(result.reasons) ? 'Brak istotnych sygnałów ryzyka' : result.reasons}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Rekomendacja:</strong>
+                        <span th:text="${result.recommendation}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Obliczono:</strong>
+                        <span th:text="${result.calculationDate}"></span>
+                    </div>
+
+                    <h5 class="mt-4 mb-2">Dane kredytowe</h5>
+                    <div class="mb-1">
+                        <strong>Limit kredytowy:</strong>
+                        <span th:text="${result.creditLimit != null ? result.creditLimit : 'Brak danych'}"></span>
+                    </div>
+                    <div class="mb-1">
+                        <strong>Wykorzystana kwota:</strong>
+                        <span th:text="${result.exposure != null ? result.exposure : 'Brak danych'}"></span>
+                    </div>
+                    <div class="mb-1">
+                        <strong>Termin płatności (dni):</strong>
+                        <span th:text="${result.averageDaysPastDue != null ? result.averageDaysPastDue : 'Brak danych'}"></span>
                     </div>
 
                 </div>

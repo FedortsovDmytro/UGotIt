@@ -1,10 +1,10 @@
-package com.example.demo.base.base.controller;
+package com.example.demo.base.controller;
 
-import com.example.demo.base.base.dto.CreatePaymentRequest;
-import com.example.demo.base.base.entity.Payment;
-import com.example.demo.base.base.service.ClientService;
-import com.example.demo.base.base.service.InvoiceService;
-import com.example.demo.base.base.service.PaymentService;
+import com.example.demo.base.dto.CreatePaymentRequest;
+import com.example.demo.base.entity.Payment;
+import com.example.demo.base.service.ClientService;
+import com.example.demo.base.service.InvoiceService;
+import com.example.demo.base.service.PaymentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

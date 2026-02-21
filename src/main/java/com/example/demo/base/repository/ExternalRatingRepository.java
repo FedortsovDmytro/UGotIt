@@ -1,7 +1,7 @@
-package com.example.demo.base.base.repository;
+package com.example.demo.base.repository;
 
-import com.example.demo.base.base.entity.Client;
-import com.example.demo.base.base.entity.ExternalRating;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ExternalRating;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.example.demo.base.base.entity;
+package com.example.demo.base.entity;
 
-import com.example.demo.base.risk.RiskSignal;
+import com.example.demo.risk.RiskSignal;
 import jakarta.persistence.*;
 @Entity
 @Table(name = "risk_signal")
@@ -19,7 +19,7 @@ public class RiskSignalEntity {
     @JoinColumn(name = "risk_assessment_id", nullable = false)
     private RiskAssessment riskAssessment;
 
-    protected RiskSignalEntity() {}
+    public RiskSignalEntity() {}
 
     public RiskSignalEntity(RiskSignal signal, RiskAssessment ra) {
         this.signal = signal;
@@ -28,5 +28,9 @@ public class RiskSignalEntity {
 
     public RiskSignal getSignal() {
         return signal;
+    }
+
+    public void setSignal(RiskSignal riskSignal) {
+        this.signal = riskSignal;
     }
 }

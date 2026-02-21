@@ -1,86 +1,97 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <title>Upload Excel</title>-->
-<!--    <meta charset="UTF-8">-->
-
-<!--</head>-->
-<!--<body>-->
-<!--<h1>Upload Excel Files</h1>-->
-
-<!--<form method="post" th:action="@{/upload-file}" enctype="multipart/form-data">-->
-
-<!--    <label>Select File Type:</label>-->
-<!--    <select name="fileType" required>-->
-<!--        <option value="bisnode">Bisnode Extended</option>-->
-<!--        <option value="bisnode-agg">Bisnode Aggregated</option>-->
-<!--        <option value="receivable-aging">Raport pod Hermesa</option>-->
-<!--        <option value="credit-limits">Stan (Credit Limits)</option>-->
-<!--    </select>-->
-
-
-<!--    <br/><br/>-->
-
-<!--    <label>Select Excel File:</label>-->
-<!--    <input type="file" name="file" accept=".xlsx" required/>-->
-<!--    <br/><br/>-->
-
-<!--    <button type="submit">Upload</button>-->
-<!--</form>-->
-
-
-<!--<script>-->
-<!--    // Show report date only for receivable-aging-->
-<!--    const fileTypeSelect = document.querySelector('select[name="fileType"]');-->
-<!--    const reportDateDiv = document.getElementById('reportDateDiv');-->
-
-<!--    function toggleDate() {-->
-<!--        if (fileTypeSelect.value === 'receivable-aging') {-->
-<!--            reportDateDiv.style.display = 'block';-->
-<!--        } else {-->
-<!--            reportDateDiv.style.display = 'none';-->
-<!--        }-->
-<!--    }-->
-
-<!--    toggleDate();-->
-<!--    fileTypeSelect.addEventListener('change', toggleDate);-->
-<!--</script>-->
-<!--</body>-->
-<!--</html>-->
 <!DOCTYPE html>
-<html lang="pl">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Upload Excel</title>
+    <title>Import Excel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap (same as dashboard) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .navbar {
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
+
 <body>
 
-<h2>Import Excel</h2>
+<!-- Navbar (matching dashboard style) -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <span class="navbar-brand">UGotIt Dashboard</span>
 
-<form id="uploadForm" method="post" enctype="multipart/form-data">
+        <div class="ms-auto">
+            <a href="/dashboard" class="btn btn-sm btn-outline-light">
+                ← Back to Dashboard
+            </a>
+        </div>
+    </div>
+</nav>
 
-    <label>Typ pliku:</label>
-    <select id="fileType" name="fileType" onchange="updateAction()">
-        <option value="bisnode">Bisnode</option>
-        <option value="receivable-aging">Receivable Aging</option>
-        <option value="credit-limits">Credit Limits</option>
-        <option value="clients">Clients (bisnode-agg)</option>
-    </select>
+<div class="container">
 
-    <br><br>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
 
-    <div id="reportDateDiv" style="display:none;">
-        <label>Report Date:</label>
-        <input type="date" name="reportDate" />
-        <br><br>
+            <div class="card p-4">
+
+                <h4 class="mb-4 text-center">Import Excel File</h4>
+
+                <form id="uploadForm" method="post" enctype="multipart/form-data">
+
+                    <!-- File Type -->
+                    <div class="mb-3">
+                        <label class="form-label">File Type</label>
+                        <select id="fileType"
+                                name="fileType"
+                                class="form-select"
+                                onchange="updateAction()">
+                            <option value="bisnode">Bisnode</option>
+                            <option value="receivable-aging">Receivable Aging</option>
+                            <option value="credit-limits">Credit Limits</option>
+                            <option value="clients">Clients (bisnode-agg)</option>
+                        </select>
+                    </div>
+
+                    <!-- Report Date -->
+                    <div id="reportDateDiv" class="mb-3" style="display:none;">
+                        <label class="form-label">Report Date</label>
+                        <input type="date" name="reportDate" class="form-control" />
+                    </div>
+
+                    <!-- File Input -->
+                    <div class="mb-4">
+                        <label class="form-label">Choose Excel File</label>
+                        <input type="file"
+                               name="file"
+                               class="form-control"
+                               required />
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            Upload File
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
     </div>
 
-    <input type="file" name="file" required />
-    <br><br>
-
-    <button type="submit">Upload</button>
-
-</form>
+</div>
 
 <script>
     function updateAction() {
@@ -114,6 +125,8 @@
 
     updateAction();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

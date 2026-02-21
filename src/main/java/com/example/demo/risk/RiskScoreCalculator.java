@@ -1,9 +1,5 @@
-package com.example.demo.base.risk;
+package com.example.demo.risk;
 
-import com.example.demo.base.base.entity.Bisnode;
-import com.example.demo.base.base.entity.Client;
-import com.example.demo.base.base.entity.CreditLimit;
-import com.example.demo.base.base.entity.ReceivableAging;
 import com.example.demo.base.entity.*;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
@@ -42,7 +38,7 @@ public class RiskScoreCalculator {
 
     }
 
-    private void addOverdueSignals(ReceivableAging a, List<RiskSignal> signals) {
+    public void addOverdueSignals(ReceivableAging a, List<RiskSignal> signals) {
         if (a == null) return;
 
         addWeighted(a.getOverdue1to7(), RiskSignal.OVERDUE_1_7, signals);
@@ -66,21 +62,39 @@ public class RiskScoreCalculator {
         }
     }
 
-    private void addLimitUsageSignals(CreditLimit cl, List<RiskSignal> signals) {
-        if (cl == null || cl.getLimitAmount() == null || cl.getUsedAmount() == null)
-            return;
+//    private void addLimitUsageSignals(CreditLimit cl, List<RiskSignal> signals) {
+//        if (cl == null || cl.getLimitAmount() == null || cl.getUsedAmount() == null)
+//            return;
+//
+//        BigDecimal usage = cl.getUsedAmount()
+//                .divide(cl.getLimitAmount(), 2, RoundingMode.HALF_UP);
+//
+//        if (usage.compareTo(new BigDecimal("0.95")) > 0)
+//            signals.add(RiskSignal.LIMIT_USAGE_95);
+//        else if (usage.compareTo(new BigDecimal("0.85")) > 0)
+//            signals.add(RiskSignal.LIMIT_USAGE_85);
+//        else if (usage.compareTo(new BigDecimal("0.70")) > 0)
+//            signals.add(RiskSignal.LIMIT_USAGE_70);
+//    }
+public void addLimitUsageSignals(CreditLimit cl, List<RiskSignal> signals) {
+    if (cl == null || cl.getLimitAmount() == null || cl.getUsedAmount() == null)
+        return;
 
-        BigDecimal usage = cl.getUsedAmount()
-                .divide(cl.getLimitAmount(), 2, RoundingMode.HALF_UP);
+    // Якщо limitAmount = 0, замінюємо на 1, щоб уникнути ділення на нуль
+    BigDecimal limitAmount = cl.getLimitAmount().compareTo(BigDecimal.ZERO) == 0
+            ? BigDecimal.ONE
+            : cl.getLimitAmount();
 
-        if (usage.compareTo(new BigDecimal("0.95")) > 0)
-            signals.add(RiskSignal.LIMIT_USAGE_95);
-        else if (usage.compareTo(new BigDecimal("0.85")) > 0)
-            signals.add(RiskSignal.LIMIT_USAGE_85);
-        else if (usage.compareTo(new BigDecimal("0.70")) > 0)
-            signals.add(RiskSignal.LIMIT_USAGE_70);
-    }
+    BigDecimal usage = cl.getUsedAmount()
+            .divide(limitAmount, 2, RoundingMode.HALF_UP);
 
+    if (usage.compareTo(new BigDecimal("0.95")) > 0)
+        signals.add(RiskSignal.LIMIT_USAGE_95);
+    else if (usage.compareTo(new BigDecimal("0.85")) > 0)
+        signals.add(RiskSignal.LIMIT_USAGE_85);
+    else if (usage.compareTo(new BigDecimal("0.70")) > 0)
+        signals.add(RiskSignal.LIMIT_USAGE_70);
+}
     private void addExternalRatingSignals(Bisnode b, List<RiskSignal> signals) {
         if (b == null || b.getRating() == null)
             return;

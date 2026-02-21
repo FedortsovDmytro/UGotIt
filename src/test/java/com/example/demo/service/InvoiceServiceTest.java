@@ -1,12 +1,13 @@
-package com.example.demo.base.service;
+package com.example.demo.service;
 
 
-import com.example.demo.base.base.entity.Client;
-import com.example.demo.base.base.entity.Invoice;
-import com.example.demo.base.base.entity.InvoiceStatus;
-import com.example.demo.base.base.repository.ClientRepository;
-import com.example.demo.base.base.repository.InvoiceRepository;
-import com.example.demo.base.base.service.InvoiceService;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.Invoice;
+import com.example.demo.base.entity.InvoiceStatus;
+import com.example.demo.base.repository.ClientRepository;
+import com.example.demo.base.repository.InvoiceRepository;
+import com.example.demo.base.service.InvoiceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -40,7 +41,10 @@ class InvoiceServiceTest {
 
     @Test
     void shouldCreateInvoiceSuccessfully() {
-        Client client = new Client.Builder("ext123", "John Doe", null).build();
+        Client client = Client.builder("ext123", "John Doe", ClientStatus.ACTIVE)
+                .creditLimit(new BigDecimal("10000"))
+                .ratingExternal("AAA")
+                .build();
         when(clientRepository.findById(1L)).thenReturn(Optional.of(client));
 
         Invoice invoice = new Invoice.Builder(client, LocalDate.now(), LocalDate.now().plusDays(10),
@@ -81,7 +85,10 @@ class InvoiceServiceTest {
 
     @Test
     void shouldGetInvoicesForClient() {
-        Client client = new Client.Builder("ext123", "John Doe", null).build();
+        Client client = Client.builder("ext123", "John Doe", ClientStatus.ACTIVE)
+                .creditLimit(new BigDecimal("10000"))
+                .ratingExternal("AAA")
+                .build();
         when(clientRepository.findById(1L)).thenReturn(Optional.of(client));
 
         Invoice invoice1 = new Invoice.Builder(client, LocalDate.now(), LocalDate.now().plusDays(10),
@@ -98,8 +105,10 @@ class InvoiceServiceTest {
 
     @Test
     void shouldGetOpenInvoices() {
-        Client client = new Client.Builder("ext123", "John Doe", null).build();
-
+        Client client = Client.builder("ext123", "John Doe", ClientStatus.ACTIVE)
+                .creditLimit(new BigDecimal("10000"))
+                .ratingExternal("AAA")
+                .build();
         Invoice invoice1 = new Invoice.Builder(client, LocalDate.now(), LocalDate.now().plusDays(10),
                 BigDecimal.valueOf(1000), InvoiceStatus.OPEN).build();
         Invoice invoice2 = new Invoice.Builder(client, LocalDate.now(), LocalDate.now().plusDays(5),
@@ -115,7 +124,10 @@ class InvoiceServiceTest {
 
     @Test
     void shouldGetInvoiceById() {
-        Client client = new Client.Builder("ext123", "John Doe", null).build();
+        Client client = Client.builder("ext123", "John Doe", ClientStatus.ACTIVE)
+                .creditLimit(new BigDecimal("10000"))
+                .ratingExternal("AAA")
+                .build();
         Invoice invoice = new Invoice.Builder(client, LocalDate.now(), LocalDate.now().plusDays(10),
                 BigDecimal.valueOf(1000), InvoiceStatus.OPEN).build();
 

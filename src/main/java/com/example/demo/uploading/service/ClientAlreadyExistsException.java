@@ -1,4 +1,4 @@
-package com.example.demo.base.uploading.service;
+package com.example.demo.uploading.service;
 
 public class ClientAlreadyExistsException extends Throwable {
     public ClientAlreadyExistsException(String clientId) {

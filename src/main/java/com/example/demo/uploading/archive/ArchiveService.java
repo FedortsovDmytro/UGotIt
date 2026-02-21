@@ -1,10 +1,11 @@
-package com.example.demo.base.uploading.archive;
+package com.example.demo.uploading.archive;
 
-import com.example.demo.base.base.entity.Client;
-import com.example.demo.base.base.entity.ClientStatus;
-import com.example.demo.base.base.entity.Invoice;
-import com.example.demo.base.base.repository.ClientRepository;
-import com.example.demo.base.base.repository.InvoiceRepository;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.Invoice;
+import com.example.demo.base.repository.ClientRepository;
+import com.example.demo.base.repository.InvoiceRepository;
+import com.example.demo.base.service.InvoiceService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 @Service

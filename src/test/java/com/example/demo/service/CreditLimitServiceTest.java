@@ -1,11 +1,11 @@
-package com.example.demo.base.service;
+package com.example.demo.service;
 
-import com.example.demo.base.base.entity.Client;
-import com.example.demo.base.base.entity.ClientStatus;
-import com.example.demo.base.base.entity.CreditLimit;
-import com.example.demo.base.base.repository.ClientRepository;
-import com.example.demo.base.base.repository.CreditLimitExcelRepository;
-import com.example.demo.base.base.service.CreditLimitService;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.CreditLimit;
+import com.example.demo.base.repository.ClientRepository;
+import com.example.demo.base.repository.CreditLimitExcelRepository;
+import com.example.demo.base.service.CreditLimitService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

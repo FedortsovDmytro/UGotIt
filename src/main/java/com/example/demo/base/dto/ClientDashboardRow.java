@@ -1,7 +1,7 @@
-package com.example.demo.base.base.dto;
+package com.example.demo.base.dto;
 
-import com.example.demo.base.base.entity.Client;
-import com.example.demo.base.risk.RiskLevel;
+import com.example.demo.base.entity.Client;
+import com.example.demo.risk.RiskLevel;
 
 public class ClientDashboardRow {
     private Client client;

@@ -1,7 +1,7 @@
-package com.example.demo.base.base.dto;
+package com.example.demo.base.dto;
 
-import com.example.demo.base.base.entity.Client;
-import com.example.demo.base.base.entity.ClientStatus;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
 
 public record ClientResponse(
         String externalId,

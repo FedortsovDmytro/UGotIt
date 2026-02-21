@@ -1,6 +1,6 @@
-package com.example.demo.base.base.entity;
+package com.example.demo.base.entity;
 
-import com.example.demo.base.risk.RiskLevel;
+import com.example.demo.risk.RiskLevel;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;

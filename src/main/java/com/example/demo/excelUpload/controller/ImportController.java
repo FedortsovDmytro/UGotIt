@@ -1,6 +1,6 @@
-package com.example.demo.base.excelUpload.controller;
+package com.example.demo.excelUpload.controller;
 
-import com.example.demo.base.excelUpload.service.BisnodeExcelService;
+import com.example.demo.excelUpload.service.BisnodeExcelService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +21,7 @@ public class ImportController {
         this.bisnodeService = bisnodeService;
     }
 
-//    @PostMapping("/bisnode")
-//    public ResponseEntity<String> importBisnode(@RequestParam("file") MultipartFile file) throws IOException, IOException {
-//        File tempFile = File.createTempFile("bisnode", ".xlsx");
-//        file.transferTo(tempFile);
-//
-//        bisnodeService.importBisnodeFile(tempFile);
-//        return ResponseEntity.ok("Imported successfully");
-//    }
+
 @PostMapping("/bisnode")
 public ResponseEntity<String> importBisnode(@RequestParam("file") MultipartFile file) throws IOException {
 

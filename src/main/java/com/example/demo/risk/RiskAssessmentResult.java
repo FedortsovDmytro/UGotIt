@@ -1,6 +1,7 @@
-package com.example.demo.base.risk;
+package com.example.demo.risk;
 
 import java.util.List;
+import java.util.Set;
 
 public class RiskAssessmentResult {
 

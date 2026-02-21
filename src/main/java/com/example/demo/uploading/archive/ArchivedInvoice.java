@@ -1,8 +1,8 @@
-package com.example.demo.base.uploading.archive;
+package com.example.demo.uploading.archive;
 
 
-import com.example.demo.base.base.entity.Invoice;
-import com.example.demo.base.base.entity.InvoiceStatus;
+import com.example.demo.base.entity.Invoice;
+import com.example.demo.base.entity.InvoiceStatus;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

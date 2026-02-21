@@ -1,7 +1,7 @@
-package com.example.demo.base.security;
+package com.example.demo.security;
 
-import com.example.demo.base.homepage.User;
-import com.example.demo.base.homepage.UserRepository;
+import com.example.demo.homepage.User;
+import com.example.demo.homepage.UserRepository;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 

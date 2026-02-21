@@ -1,4 +1,4 @@
-package com.example.demo.base.risk;
+package com.example.demo.risk;
 
 
 import java.math.BigDecimal;
@@ -59,5 +59,9 @@ public class AgingResult {
                 .add(overdue15to30)
                 .add(overdue31to60)
                 .add(overdue60plus);
+    }
+
+    public BigDecimal getCurrent() {
+        return current;
     }
 }

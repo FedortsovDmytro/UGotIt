@@ -1,7 +1,7 @@
-package com.example.demo.base.uploading.service;
+package com.example.demo.uploading.service;
 
-import com.example.demo.base.base.entity.Client;
-import com.example.demo.base.uploading.dto.ReceivableRecord;
+import com.example.demo.base.entity.Client;
+import com.example.demo.uploading.dto.ReceivableRecord;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

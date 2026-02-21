@@ -1,18 +1,27 @@
 
-        package com.example.demo.base.base.controller;
+        package com.example.demo.base.controller;
 
-import com.example.demo.base.base.entity.ClientStatus;
-import com.example.demo.base.base.repository.RiskAssessmentRepository;
-import com.example.demo.base.base.service.ClientService;
+import com.example.demo.base.dto.ClientDashboardView;
+import com.example.demo.base.entity.Client;
+import com.example.demo.base.entity.ClientStatus;
+import com.example.demo.base.entity.RiskAssessment;
+import com.example.demo.base.repository.ClientRepository;
+import com.example.demo.base.repository.RiskAssessmentRepository;
+import com.example.demo.base.service.ClientService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-        @Controller
+import static com.example.demo.base.entity.ClientStatus.ACTIVE;
+@Controller
 public class DashboardController {
 
     private final ClientService clientService;

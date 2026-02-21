@@ -1,4 +1,4 @@
-package com.example.demo.base.uploading.dto;
+package com.example.demo.uploading.dto;
 
 
 import org.apache.poi.ss.usermodel.Row;

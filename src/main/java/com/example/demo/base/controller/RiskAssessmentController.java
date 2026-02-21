@@ -82,16 +82,15 @@
 //
 //}
 //
-package com.example.demo.base.base.controller;
+package com.example.demo.base.controller;
 
-import com.example.demo.base.base.entity.*;
 import com.example.demo.base.entity.*;
-import com.example.demo.base.base.service.ClientService;
-import com.example.demo.base.base.service.CreditLimitService;
-import com.example.demo.base.base.service.ReceivableAgingService;
-import com.example.demo.base.base.service.RiskAssessmentService;
-import com.example.demo.base.risk.RiskScoringEngine;
-import com.example.demo.base.risk.RiskSignal;
+import com.example.demo.base.service.ClientService;
+import com.example.demo.base.service.CreditLimitService;
+import com.example.demo.base.service.ReceivableAgingService;
+import com.example.demo.base.service.RiskAssessmentService;
+import com.example.demo.risk.RiskScoringEngine;
+import com.example.demo.risk.RiskSignal;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -100,6 +99,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/clients/{externalId}/risk-assessments")

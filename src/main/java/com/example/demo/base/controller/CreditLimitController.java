@@ -1,9 +1,9 @@
-package com.example.demo.base.base.controller;
+package com.example.demo.base.controller;
 
-import com.example.demo.base.base.dto.CreateCreditLimitRequest;
-import com.example.demo.base.base.entity.CreditLimit;
-import com.example.demo.base.base.service.ClientService;
-import com.example.demo.base.base.service.CreditLimitService;
+import com.example.demo.base.dto.CreateCreditLimitRequest;
+import com.example.demo.base.entity.CreditLimit;
+import com.example.demo.base.service.ClientService;
+import com.example.demo.base.service.CreditLimitService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
