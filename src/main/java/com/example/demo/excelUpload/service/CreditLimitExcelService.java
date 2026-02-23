@@ -40,10 +40,7 @@ public class CreditLimitExcelService {
                 }
 
                 var clientOpt = clientRepo.findByExternalId(externalId);
-//                if (clientOpt.isEmpty()) {
-//                    System.out.println("Клієнта не знайдено, пропущено: " + externalId);
-//                    continue;
-//                }
+
 
                 Client client = clientOpt.orElseGet(() -> {
                     Client newClient = new Client();

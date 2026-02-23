@@ -30,7 +30,7 @@ public class SecurityConfig {
                 // Authorization rules
                 .authorizeHttpRequests(auth -> auth
                         // Public pages
-                        .requestMatchers("/login", "/register", "/css/**").permitAll()
+                        .requestMatchers("/login", "/css/**").permitAll()
                         // Make all import endpoints publicly accessible
                         .requestMatchers(
                                 "/clients/import",

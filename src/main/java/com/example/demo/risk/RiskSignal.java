@@ -103,9 +103,6 @@ public enum RiskSignal {
         return weight;
     }
 
-    /**
-     * Returns the description based on the current locale.
-     */
 
     public String getDescription(Locale locale) {
         if (locale != null && locale.getLanguage().equals(new Locale("pl").getLanguage())) {

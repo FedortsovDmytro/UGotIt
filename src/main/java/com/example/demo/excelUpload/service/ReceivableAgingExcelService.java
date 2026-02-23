@@ -97,13 +97,7 @@ public class ReceivableAgingExcelService {
             default -> null;
         };
     }
-    //
-//    private BigDecimal read(Row r, int idx) {
-//        Cell cell = r.getCell(idx);
-//        if (cell == null) return BigDecimal.ZERO;
-//
-//        return BigDecimal.valueOf(cell.getNumericCellValue());
-//    }
+
     private BigDecimal read(Row r, int idx) {
         Cell cell = r.getCell(idx);
         if (cell == null) return BigDecimal.ZERO;
